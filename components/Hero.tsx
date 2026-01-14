@@ -1,0 +1,97 @@
+'use client'
+
+import { useGSAP } from '@gsap/react'
+import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Link from 'next/link'
+import { useRef } from 'react'
+
+gsap.registerPlugin(ScrollTrigger)
+
+export default function Hero() {
+  const heroRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    gsap.to(heroRef.current, {
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
+      },
+      y: -200,
+      opacity: 0.3,
+      scale: 0.95,
+    })
+  }, [])
+
+  return (
+    <section ref={heroRef} className="relative min-h-screen flex flex-col bg-white z-10">
+      {/* Header Navigation */}
+      <motion.header
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full px-8 md:px-16 py-8 flex items-center justify-between"
+      >
+        {/* Logo */}
+        <Link href="/" className="text-xl font-bold">
+          <span className="text-foreground">Nadhir</span>
+          <span className="text-foreground/40">B.K.</span>
+        </Link>
+
+        {/* Navigation */}
+        <nav className="flex items-center gap-8">
+          <Link
+            href="#about"
+            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+          >
+            À PROPOS
+          </Link>
+          <Link
+            href="#contact"
+            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+          >
+            CONTACT
+          </Link>
+        </nav>
+      </motion.header>
+
+      {/* Hero Content - Centré verticalement */}
+      <div className="flex-1 flex items-center justify-center px-8 md:px-16">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground text-center leading-[1.1] tracking-tight max-w-5xl"
+        >
+          Hello, moi c'est Nadhir.
+          <br />
+          Je suis web designer.
+        </motion.h1>
+      </div>
+
+      {/* Bottom Links */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full px-8 md:px-16 pb-12 flex items-center justify-center gap-12"
+      >
+        <Link
+          href="#projects"
+          className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+        >
+          PROJETS WEB
+        </Link>
+        <Link
+          href="#process"
+          className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+        >
+          MON APPROCHE
+        </Link>
+      </motion.div>
+    </section>
+  )
+}
