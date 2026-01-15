@@ -97,7 +97,7 @@ export default function Contact() {
         </motion.div>
 
         {/* Grid 2 colonnes : Form + Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
           {/* Colonne gauche : Formulaire */}
           <motion.form
             initial={{ opacity: 0, x: -40 }}
@@ -112,50 +112,36 @@ export default function Contact() {
                 <label htmlFor="name" className="block text-sm font-bold mb-2 text-background">
                   Nom
                 </label>
-                <motion.div
-                  animate={{
-                    scale: focusedField === 'name' ? 1.02 : 1,
-                  }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                >
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('name')}
-                    onBlur={() => setFocusedField(null)}
-                    required
-                    className="w-full px-6 py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-accent focus:bg-background/15 transition-all duration-300"
-                    placeholder="Votre nom"
-                  />
-                </motion.div>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  onFocus={() => setFocusedField('name')}
+                  onBlur={() => setFocusedField(null)}
+                  required
+                  className="w-full px-6 py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300"
+                  placeholder="Votre nom"
+                />
               </div>
 
               <div className="relative">
                 <label htmlFor="email" className="block text-sm font-bold mb-2 text-background">
                   Email
                 </label>
-                <motion.div
-                  animate={{
-                    scale: focusedField === 'email' ? 1.02 : 1,
-                  }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                >
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('email')}
-                    onBlur={() => setFocusedField(null)}
-                    required
-                    className="w-full px-6 py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-accent focus:bg-background/15 transition-all duration-300"
-                    placeholder="votre@email.com"
-                  />
-                </motion.div>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  onFocus={() => setFocusedField('email')}
+                  onBlur={() => setFocusedField(null)}
+                  required
+                  className="w-full px-6 py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300"
+                  placeholder="votre@email.com"
+                />
               </div>
             </div>
 
@@ -163,25 +149,18 @@ export default function Contact() {
               <label htmlFor="message" className="block text-sm font-bold mb-2 text-background">
                 Message
               </label>
-              <motion.div
-                animate={{
-                  scale: focusedField === 'message' ? 1.01 : 1,
-                }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              >
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  onFocus={() => setFocusedField('message')}
-                  onBlur={() => setFocusedField(null)}
-                  required
-                  rows={6}
-                  className="w-full px-6 py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300 resize-none"
-                  placeholder="Parlez-moi de votre projet..."
-                />
-              </motion.div>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                onFocus={() => setFocusedField('message')}
+                onBlur={() => setFocusedField(null)}
+                required
+                rows={6}
+                className="w-full px-6 py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300 resize-none"
+                placeholder="Parlez-moi de votre projet..."
+              />
             </div>
 
             <motion.button

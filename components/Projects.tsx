@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowUpRight, ExternalLink } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
 const projects = [
   {
@@ -12,7 +12,9 @@ const projects = [
       'Site vitrine élégant pour une professionnelle du coaching. Design épuré, animations subtiles et optimisation SEO.',
     tags: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
     link: 'https://www.deborah-martin-services.fr/',
-    color: '#6466F1',
+    color: '#1D2532',
+    logo: '/images/projects/deborah-logo.svg', // À ajouter
+    image: '/images/projects/deborah-screenshot.jpg', // À ajouter
   },
   {
     id: 2,
@@ -22,7 +24,9 @@ const projects = [
       "Plateforme corporate moderne avec animations avancées et architecture scalable. Focus sur l'expérience utilisateur.",
     tags: ['Next.js', 'TypeScript', 'shadcn/ui'],
     link: 'https://www.attentivestrategy.com/',
-    color: '#00D4AA',
+    color: '#1F746D',
+    logo: '/images/projects/attentive.png',
+    image: '/images/projects/attentive-screenshot.png',
   },
   {
     id: 3,
@@ -32,7 +36,9 @@ const projects = [
       'Marketplace de vinyles avec identité visuelle forte. Design system complet, gestion de panier et paiements intégrés.',
     tags: ['React', 'Vite', 'Tailwind CSS', 'Supabase'],
     link: 'https://vinyfy-v2.vercel.app/',
-    color: '#FF6B6B',
+    color: '#DFDEE3',
+    logo: '/images/projects/vinyfy-logo.svg', // À ajouter
+    image: '/images/projects/vinyfy-screenshot.jpg', // À ajouter
   },
 ]
 
@@ -69,7 +75,7 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="mb-20 text-center"
+          className="mb-16 text-center"
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-background mb-6">
             Projets récents
@@ -82,98 +88,73 @@ export default function Projects() {
 
         {/* Projects Grid */}
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
           {projects.map((project) => (
-            <motion.article
-              key={project.id}
-              variants={itemVariants}
-              className="group cursor-pointer"
-            >
-              {/* Image Container - Using colored placeholder */}
+            <motion.article key={project.id} variants={itemVariants} className="group">
+              {/* Image Container */}
               <motion.a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block relative overflow-hidden rounded-2xl mb-6 aspect-[4/3]"
-                style={{ backgroundColor: `${project.color}15` }}
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                className="block relative overflow-hidden rounded-xl mb-4 aspect-[4/3]"
+                whileHover={{ y: -8 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               >
-                {/* Placeholder content */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className="text-6xl md:text-8xl font-black opacity-20"
-                    style={{ color: project.color }}
-                  >
-                    {project.title.charAt(0)}
-                  </div>
+                {/* Background coloré */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-500"
+                  style={{ backgroundColor: project.color }}
+                />
+
+                {/* Image du site (apparaît au hover) */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    backgroundImage: `url(${project.image})`,
+                  }}
+                />
+
+                {/* Overlay sombre au hover pour garder le logo visible */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Logo (reste visible) */}
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <img
+                    src={project.logo}
+                    alt={`${project.title} logo`}
+                    className="max-w-[60%] max-h-[60%] object-contain"
+                  />
                 </div>
 
-                {/* Decorative elements */}
-                <div
-                  className="absolute top-4 left-4 w-16 h-16 rounded-full opacity-30"
-                  style={{ backgroundColor: project.color }}
-                />
-                <div
-                  className="absolute bottom-8 right-8 w-24 h-24 rounded-full opacity-20"
-                  style={{ backgroundColor: project.color }}
-                />
-
-                {/* Overlay gradient on hover */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: `linear-gradient(to top, ${project.color}90, transparent)` }}
-                />
-
-                {/* Link button */}
-                <motion.div
-                  className="absolute top-4 right-4 bg-background p-3 rounded-full opacity-0 group-hover:opacity-100 shadow-lg"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ArrowUpRight size={20} className="text-foreground" />
-                </motion.div>
-
-                {/* Project title overlay on mobile */}
-                <div className="absolute bottom-4 left-4 right-4 lg:hidden">
-                  <span className="text-sm font-bold text-foreground/70 uppercase tracking-wider">
-                    {project.category}
-                  </span>
+                {/* External link icon */}
+                <div className="absolute top-3 right-3 bg-white/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                  <ArrowUpRight size={16} className="text-foreground" />
                 </div>
               </motion.a>
 
               {/* Content */}
               <div>
-                <p className="text-sm font-bold text-background/60 mb-2 uppercase tracking-wider">
+                <p className="text-xs font-bold text-background/50 mb-1 uppercase tracking-wider">
                   {project.category}
                 </p>
-                <h3 className="text-2xl md:text-3xl font-bold text-background mb-3 group-hover:text-background/70 transition-colors duration-300">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2"
-                  >
-                    {project.title}
-                    <ExternalLink
-                      size={20}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
-                    />
-                  </a>
+                <h3 className="text-xl font-bold text-background mb-2 group-hover:text-background/80 transition-colors">
+                  {project.title}
                 </h3>
-                <p className="text-background/60 mb-4 leading-relaxed">{project.description}</p>
+                <p className="text-sm text-background/60 leading-relaxed mb-3">
+                  {project.description}
+                </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1.5 bg-background/10 text-background/80 text-sm font-medium rounded-full hover:bg-background/20 transition-colors duration-300"
+                      className="px-2.5 py-1 bg-background/10 text-background/70 text-xs font-medium rounded-md"
                     >
                       {tag}
                     </span>
@@ -182,20 +163,6 @@ export default function Projects() {
               </div>
             </motion.article>
           ))}
-        </motion.div>
-
-        {/* CTA - Vinyfy en cours */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 p-8 bg-accent/5 rounded-2xl border border-accent/20"
-        >
-          <p className="text-center text-lg text-muted">
-            <strong className="text-foreground">Vinyfy</strong> est actuellement en développement.
-            Une marketplace de vinyles avec une DA bien marquée arrive bientôt !
-          </p>
         </motion.div>
       </div>
     </section>

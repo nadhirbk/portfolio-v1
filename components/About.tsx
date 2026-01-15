@@ -25,16 +25,16 @@ export default function About() {
             className="relative"
           >
             <motion.div
-              className="aspect-square rounded-3xl overflow-hidden bg-background/10 relative flex items-center justify-center"
+              className="aspect-square rounded-3xl overflow-hidden bg-background/10 relative"
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              {/* Placeholder with initial */}
-              <div className="text-[150px] md:text-[200px] font-black text-background/30">N</div>
-
-              {/* Decorative circles */}
-              <div className="absolute top-8 right-8 w-20 h-20 rounded-full bg-background/20" />
-              <div className="absolute bottom-12 left-12 w-12 h-12 rounded-full bg-background/30" />
+              {/* Photo de profil */}
+              <img
+                src="/images/profile.jpg"
+                alt="Nadhir B.K."
+                className="w-full h-full object-cover"
+              />
             </motion.div>
 
             {/* Accent decoration */}

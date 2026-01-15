@@ -20,9 +20,11 @@ export default function Hero() {
         end: 'bottom top',
         scrub: 1,
       },
-      y: -200,
-      opacity: 0.3,
-      scale: 0.95,
+      y: -100,
+      opacity: 0,
+      scale: 0.98,
+      filter: 'blur(10px)',
+      ease: 'none',
     })
   }, [])
 
@@ -43,18 +45,18 @@ export default function Hero() {
 
         {/* Navigation */}
         <nav className="flex items-center gap-8">
-          <Link
+          <a
             href="#about"
             className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
           >
             À PROPOS
-          </Link>
-          <Link
+          </a>
+          <a
             href="#contact"
             className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
           >
             CONTACT
-          </Link>
+          </a>
         </nav>
       </motion.header>
 
@@ -79,18 +81,18 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className="w-full px-8 md:px-16 pb-12 flex items-center justify-center gap-12"
       >
-        <Link
+        <a
           href="#projects"
           className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
         >
           PROJETS WEB
-        </Link>
-        <Link
+        </a>
+        <a
           href="#process"
           className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
         >
           MON APPROCHE
-        </Link>
+        </a>
       </motion.div>
     </section>
   )

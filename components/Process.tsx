@@ -71,7 +71,7 @@ export default function Process() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="mb-20 text-center"
+          className="mb-16 text-center"
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6">
             Comment je travaille
@@ -105,7 +105,7 @@ export default function Process() {
 
                 {/* Card */}
                 <motion.div
-                  className="bg-background/5 backdrop-blur-sm border border-background/10 rounded-2xl p-6 h-full"
+                  className="bg-background/5 backdrop-blur-sm border border-background/10 rounded-2xl p-6 h-full flex flex-col"
                   whileHover={{
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     y: -8,
@@ -121,39 +121,16 @@ export default function Process() {
                   <h3 className="text-xl md:text-2xl font-bold mb-3 text-background">
                     {step.title}
                   </h3>
-                  <p className="text-background/70 mb-4 leading-relaxed text-sm md:text-base">
+                  <p className="text-background/70 mb-4 leading-relaxed text-sm md:text-base flex-grow">
                     {step.description}
                   </p>
-                  <span className="inline-block px-4 py-2 bg-background/20 text-background text-sm font-bold rounded-full">
+                  <span className="inline-block px-4 py-2 bg-background/20 text-background text-sm font-bold rounded-full w-fit">
                     {step.highlight}
                   </span>
                 </motion.div>
               </motion.div>
             )
           })}
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 text-center"
-        >
-          <p className="text-xl text-background/70 mb-8">Prêt à démarrer votre projet ?</p>
-          <motion.a
-            href="#contact"
-            className="inline-block bg-background text-foreground px-8 py-4 rounded-full font-bold text-lg"
-            whileHover={{
-              scale: 1.05,
-              boxShadow: '0 20px 40px rgba(255, 255, 255, 0.2)',
-            }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-          >
-            Parlons-en
-          </motion.a>
         </motion.div>
       </div>
     </section>
