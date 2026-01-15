@@ -107,20 +107,9 @@ export default function Projects() {
               >
                 {/* Background coloré */}
                 <div
-                  className="absolute inset-0 transition-opacity duration-500"
+                  className="absolute inset-0"
                   style={{ backgroundColor: project.color }}
                 />
-
-                {/* Image du site (apparaît au hover) */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    backgroundImage: `url(${project.image})`,
-                  }}
-                />
-
-                {/* Overlay sombre au hover pour garder le logo visible */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Logo (reste visible) */}
                 <div className="absolute inset-0 flex items-center justify-center z-10">
