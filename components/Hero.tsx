@@ -52,6 +52,12 @@ export default function Hero() {
             À PROPOS
           </a>
           <a
+            href="#testimonials"
+            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+          >
+            TÉMOIGNAGES
+          </a>
+          <a
             href="#contact"
             className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
           >
