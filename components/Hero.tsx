@@ -70,7 +70,7 @@ export default function Hero() {
         >
           Hello, moi c&apos;est Nadhir.
           <br />
-          Je suis web designer.
+          Je crée des sites web qui marquent.
         </motion.h1>
       </div>
 
