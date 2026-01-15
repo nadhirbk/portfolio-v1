@@ -68,7 +68,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground text-center leading-[1.1] tracking-tight max-w-5xl"
         >
-          Hello, moi c'est Nadhir.
+          Hello, moi c&apos;est Nadhir.
           <br />
           Je suis web designer.
         </motion.h1>

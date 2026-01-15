@@ -91,8 +91,8 @@ export default function Contact() {
             variants={itemVariants}
             className="text-lg md:text-xl text-background/70 max-w-3xl leading-relaxed"
           >
-            Un projet en tête ? Une question ? N'hésitez pas à me contacter. Je réponds généralement
-            sous 24h.
+            Un projet en tête ? Une question ? N&apos;hésitez pas à me contacter. Je réponds
+            généralement sous 24h.
           </motion.p>
         </motion.div>
 
@@ -195,7 +195,7 @@ export default function Contact() {
             {/* Texte d'accroche */}
             <div>
               <h3 className="text-2xl md:text-3xl font-black mb-4">
-                Envie de créer quelque chose d'incroyable ?
+                Envie de créer quelque chose d&apos;incroyable ?
               </h3>
               <p className="text-background/70 leading-relaxed">
                 Que ce soit pour un site vitrine, une refonte complète ou un projet sur-mesure, je

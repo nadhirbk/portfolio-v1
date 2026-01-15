@@ -72,8 +72,8 @@ export default function Testimonials() {
             Ils livrent leur expérience
           </h2>
           <p className="text-lg md:text-xl text-background/70 max-w-2xl mx-auto leading-relaxed">
-            La satisfaction de mes clients est ma priorité. Découvrez ce qu'ils pensent de notre
-            collaboration.
+            La satisfaction de mes clients est ma priorité. Découvrez ce qu&apos;ils pensent de
+            notre collaboration.
           </p>
         </motion.div>
 
@@ -96,7 +96,7 @@ export default function Testimonials() {
 
               {/* Testimonial text */}
               <p className="text-background/80 leading-relaxed mb-8 italic">
-                "{testimonial.testimonial}"
+                &ldquo;{testimonial.testimonial}&rdquo;
               </p>
 
               {/* Author info */}
