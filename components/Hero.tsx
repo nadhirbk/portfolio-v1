@@ -74,7 +74,18 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground text-center leading-[1.1] tracking-tight max-w-5xl"
         >
-          Hello, moi c&apos;est Nadhir.
+          Hello, moi c&apos;est{' '}
+          <span className="relative inline-block">
+            <span className="relative z-10 text-background px-3">Nadhir</span>
+            <motion.span
+              className="absolute inset-0 bg-foreground"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              style={{ transformOrigin: 'left' }}
+            />
+          </span>
+          .
           <br />
           Je crée des sites web qui marquent.
         </motion.h1>
