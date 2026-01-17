@@ -76,7 +76,14 @@ export default function Hero() {
         >
           Hello, moi c&apos;est{' '}
           <span className="relative inline-block">
-            <span className="relative z-10 text-background px-3">Nadhir</span>
+            <motion.span
+              className="relative z-10 text-background px-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.8 }}
+            >
+              Nadhir
+            </motion.span>
             <motion.span
               className="absolute inset-0 bg-foreground"
               initial={{ scaleX: 0 }}
