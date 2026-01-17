@@ -67,7 +67,7 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className="section-spacing section-padding bg-foreground">
+    <section id="projects" className="section-spacing section-padding bg-foreground relative z-10">
       <div className="container-max">
         {/* Header */}
         <motion.div
@@ -106,10 +106,7 @@ export default function Projects() {
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               >
                 {/* Background coloré */}
-                <div
-                  className="absolute inset-0"
-                  style={{ backgroundColor: project.color }}
-                />
+                <div className="absolute inset-0" style={{ backgroundColor: project.color }} />
 
                 {/* Logo (reste visible) */}
                 <div className="absolute inset-0 flex items-center justify-center z-10">

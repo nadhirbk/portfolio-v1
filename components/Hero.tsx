@@ -29,7 +29,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex flex-col bg-white z-10">
+    <section ref={heroRef} className="relative min-h-screen flex flex-col bg-white z-0">
       {/* Header Navigation */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
