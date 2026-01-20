@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, Send } from 'lucide-react'
+import { Briefcase, Clock, Github, Linkedin, Mail, Send } from 'lucide-react'
 import { useState } from 'react'
 
 export default function Contact() {
@@ -207,7 +207,7 @@ export default function Contact() {
             <div className="space-y-4">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-background/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl">✉️</span>
+                  <Mail size={20} className="text-background" />
                 </div>
                 <div>
                   <p className="font-bold mb-1 text-background">Email</p>
@@ -222,7 +222,7 @@ export default function Contact() {
 
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-background/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl">⏱️</span>
+                  <Clock size={20} className="text-background" />
                 </div>
                 <div>
                   <p className="font-bold mb-1 text-background">Réponse sous</p>
@@ -232,7 +232,7 @@ export default function Contact() {
 
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-background/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl">💼</span>
+                  <Briefcase size={20} className="text-background" />
                 </div>
                 <div>
                   <p className="font-bold mb-1 text-background">Disponibilité</p>
