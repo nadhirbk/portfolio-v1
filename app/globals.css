@@ -7,13 +7,20 @@
     @apply border-border;
   }
 
+  :root {
+    --background: 255 255 255; /* #FFFFFF */
+    --foreground: 15 15 15; /* #0F0F0F */
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground font-satoshi antialiased;
+    @apply font-satoshi antialiased;
     cursor: none;
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
