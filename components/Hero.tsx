@@ -28,6 +28,14 @@ export default function Hero() {
     })
   }, [])
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault()
+    const element = document.querySelector(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
     <section ref={heroRef} className="relative min-h-screen flex flex-col bg-white z-0">
       {/* Header Navigation */}
@@ -47,18 +55,21 @@ export default function Hero() {
         <nav className="flex items-center gap-8">
           <a
             href="#about"
+            onClick={(e) => scrollToSection(e, '#about')}
             className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
           >
             À PROPOS
           </a>
           <a
             href="#testimonials"
+            onClick={(e) => scrollToSection(e, '#testimonials')}
             className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
           >
             TÉMOIGNAGES
           </a>
           <a
             href="#contact"
+            onClick={(e) => scrollToSection(e, '#contact')}
             className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
           >
             CONTACT
@@ -107,12 +118,14 @@ export default function Hero() {
       >
         <a
           href="#projects"
+          onClick={(e) => scrollToSection(e, '#projects')}
           className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
         >
           PROJETS WEB
         </a>
         <a
           href="#process"
+          onClick={(e) => scrollToSection(e, '#process')}
           className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
         >
           MON APPROCHE

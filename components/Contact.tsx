@@ -1,8 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { Briefcase, Clock, Github, Linkedin, Mail, Send } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,12 +13,63 @@ export default function Contact() {
   })
 
   const [focusedField, setFocusedField] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Magnetic button effect
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  const springConfig = { stiffness: 150, damping: 15, mass: 0.1 }
+  const buttonX = useSpring(mouseX, springConfig)
+  const buttonY = useSpring(mouseY, springConfig)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!buttonRef.current) return
+    const rect = buttonRef.current.getBoundingClientRect()
+    const centerX = rect.left + rect.width / 2
+    const centerY = rect.top + rect.height / 2
+    mouseX.set((e.clientX - centerX) * 0.3)
+    mouseY.set((e.clientY - centerY) * 0.3)
+  }
+
+  const handleMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Intégrer avec un service d'email (Resend, SendGrid, etc.)
-    console.log('Form submitted:', formData)
-    alert('Merci ! Je vous répondrai très vite.')
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        toast.success('Message envoyé !', {
+          description: 'Je vous répondrai dans les 24h.',
+        })
+        setFormData({ name: '', email: '', message: '' })
+      } else {
+        toast.error('Erreur', {
+          description: data.error || 'Une erreur est survenue.',
+        })
+      }
+    } catch (error) {
+      toast.error('Erreur réseau', {
+        description: "Impossible d'envoyer le message. Réessayez.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -164,23 +216,41 @@ export default function Contact() {
             </div>
 
             <motion.button
+              ref={buttonRef}
               type="submit"
-              className="w-full bg-background text-foreground px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 group"
+              disabled={isSubmitting}
+              className="w-full bg-background text-foreground px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 group relative disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ x: buttonX, y: buttonY }}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
               whileHover={{
-                scale: 1.02,
-                boxShadow: '0 20px 40px rgba(255, 255, 255, 0.2)',
+                scale: isSubmitting ? 1 : 1.02,
+                boxShadow: isSubmitting ? 'none' : '0 20px 40px rgba(255, 255, 255, 0.2)',
               }}
-              whileTap={{ scale: 0.98 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             >
-              Envoyer le message
-              <motion.span
-                className="inline-block"
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <Send size={20} />
-              </motion.span>
+              {isSubmitting ? (
+                <>
+                  <motion.div
+                    className="w-5 h-5 border-2 border-foreground border-t-transparent rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                  />
+                  Envoi en cours...
+                </>
+              ) : (
+                <>
+                  Envoyer le message
+                  <motion.span
+                    className="inline-block"
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    <Send size={20} />
+                  </motion.span>
+                </>
+              )}
             </motion.button>
           </motion.form>
 

@@ -13,12 +13,22 @@
 
   body {
     @apply bg-background text-foreground font-satoshi antialiased;
+    cursor: none;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   /* Selection styling */
   ::selection {
     @apply bg-accent text-background;
   }
+}
+
+/* Dark mode colors */
+.dark {
+  --background: 15 15 15; /* #0F0F0F */
+  --foreground: 255 255 255; /* #FFFFFF */
 }
 
 /* Hide scrollbar */
