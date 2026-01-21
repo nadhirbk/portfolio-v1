@@ -102,7 +102,4 @@ export default function CustomCursor() {
       </motion.div>
     </>
   )
-      </motion.div>
-    </>
-  )
 }

@@ -37,8 +37,8 @@ const projects = [
     tags: ['React', 'Vite', 'Tailwind CSS', 'Supabase'],
     link: 'https://vinyfy-v2.vercel.app/',
     color: '#DFDEE3',
-    logo: '/images/projects/vinyfy-logo.svg', // À ajouter
-    image: '/images/projects/vinyfy-screenshot.jpg', // À ajouter
+    logo: '/images/projects/vinyfy.svg',
+    image: '/images/projects/vinyfy-screenshot.jpg',
   },
 ]
 
