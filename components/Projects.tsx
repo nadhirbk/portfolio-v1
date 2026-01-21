@@ -114,7 +114,7 @@ export default function Projects() {
                     src={project.logo}
                     alt={`${project.title} logo`}
                     className={`object-contain ${
-                      project.id === 1 ? 'max-w-[75%] max-h-[75%]' : 'max-w-[60%] max-h-[60%]'
+                      project.id === 1 ? 'max-w-[85%] max-h-[85%]' : 'max-w-[60%] max-h-[60%]'
                     }`}
                   />
                 </div>
