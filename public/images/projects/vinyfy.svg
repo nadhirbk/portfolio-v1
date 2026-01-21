@@ -1,7 +1,16 @@
 <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Disque -->
   <circle cx="60" cy="60" r="50" fill="#1a1a1a"/>
-  <circle cx="60" cy="60" r="18" fill="#ffffff"/>
-  <path d="M35 35 A35 35 0 0 1 60 25" stroke="#ffffff" stroke-width="4" fill="none"/>
-  <path d="M30 45 A45 45 0 0 1 65 20" stroke="#ffffff" stroke-width="4" fill="none"/>
-  <path d="M28 55 A52 52 0 0 1 70 18" stroke="#ffffff" stroke-width="4" fill="none"/>
+  <circle cx="60" cy="60" r="45" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  <circle cx="60" cy="60" r="40" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  <circle cx="60" cy="60" r="35" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  <circle cx="60" cy="60" r="30" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  <circle cx="60" cy="60" r="25" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  <ellipse cx="45" cy="45" rx="20" ry="15" fill="white" opacity="0.08" transform="rotate(-30 45 45)"/>
+  <!-- Label doré -->
+  <circle cx="60" cy="60" r="18" fill="#D4A053"/>
+  <circle cx="60" cy="60" r="15" fill="#C4903F"/>
+  <circle cx="60" cy="60" r="4" fill="#1a1a1a"/>
+  <!-- Bande rouge Yeezus -->
+  <rect x="85" y="45" width="35" height="30" fill="#E23636"/>
 </svg>
