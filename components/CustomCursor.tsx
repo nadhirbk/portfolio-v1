@@ -64,14 +64,14 @@ export default function CustomCursor() {
     <>
       {/* Main cursor dot */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999]"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
         }}
       >
         <motion.div
-          className="bg-foreground rounded-full"
+          className="bg-white rounded-full"
           animate={{
             width: isHovering ? 32 : 6,
             height: isHovering ? 32 : 6,
@@ -88,7 +88,7 @@ export default function CustomCursor() {
 
       {/* Outer ring on hover */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9998]"
+        className="fixed top-0 left-0 pointer-events-none z-[9998] mix-blend-difference"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
@@ -98,10 +98,7 @@ export default function CustomCursor() {
         }}
         transition={{ duration: 0.2 }}
       >
-        <div className="w-12 h-12 -translate-x-6 -translate-y-6 border border-foreground rounded-full" />
-      </motion.div>
-    </>
-  )
+        <div className="w-12 h-12 -translate-x-6 -translate-y-6 border border-white rounded-full" />
       </motion.div>
     </>
   )
