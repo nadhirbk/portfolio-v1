@@ -198,7 +198,6 @@ export default function Contact() {
               className="w-full bg-background text-foreground px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 group relative disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={{
                 scale: isSubmitting ? 1 : 1.02,
-                boxShadow: isSubmitting ? 'none' : '0 20px 40px rgba(255, 255, 255, 0.2)',
               }}
               whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
