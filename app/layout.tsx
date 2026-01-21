@@ -1,7 +1,5 @@
 import CustomCursor from '@/components/CustomCursor'
 import ScrollProgress from '@/components/ScrollProgress'
-import { ThemeProvider } from '@/components/ThemeProvider'
-import ThemeToggle from '@/components/ThemeToggle'
 import { satoshi } from '@/lib/fonts'
 import type { Metadata } from 'next'
 import { Toaster } from 'sonner'
@@ -59,18 +57,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" className={satoshi.variable} suppressHydrationWarning>
+    <html lang="fr" className={satoshi.variable}>
       <body className="font-satoshi antialiased">
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <CustomCursor />
-          <ScrollProgress />
-          <ThemeToggle />
-          <Toaster position="bottom-right" richColors />
-          <a href="#main-content" className="skip-to-content">
-            Aller au contenu principal
-          </a>
-          {children}
-        </ThemeProvider>
+        <CustomCursor />
+        <ScrollProgress />
+        <Toaster position="bottom-right" richColors />
+        <a href="#main-content" className="skip-to-content">
+          Aller au contenu principal
+        </a>
+        {children}
       </body>
     </html>
   )

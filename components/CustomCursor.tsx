@@ -73,10 +73,10 @@ export default function CustomCursor() {
         <motion.div
           className="bg-white rounded-full"
           animate={{
-            width: isHovering ? 40 : 8,
-            height: isHovering ? 40 : 8,
-            x: isHovering ? -20 : -4,
-            y: isHovering ? -20 : -4,
+            width: isHovering ? 32 : 6,
+            height: isHovering ? 32 : 6,
+            x: isHovering ? -16 : -3,
+            y: isHovering ? -16 : -3,
           }}
           transition={{
             type: 'spring',
@@ -94,11 +94,14 @@ export default function CustomCursor() {
           y: cursorYSpring,
         }}
         animate={{
-          opacity: isHovering ? 0.5 : 0,
+          opacity: isHovering ? 0.3 : 0,
         }}
         transition={{ duration: 0.2 }}
       >
-        <div className="w-16 h-16 -translate-x-8 -translate-y-8 border border-white rounded-full" />
+        <div className="w-12 h-12 -translate-x-6 -translate-y-6 border border-white rounded-full" />
+      </motion.div>
+    </>
+  )
       </motion.div>
     </>
   )
