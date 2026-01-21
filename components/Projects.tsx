@@ -113,7 +113,9 @@ export default function Projects() {
                   <img
                     src={project.logo}
                     alt={`${project.title} logo`}
-                    className="max-w-[60%] max-h-[60%] object-contain"
+                    className={`object-contain ${
+                      project.id === 1 ? 'max-w-[75%] max-h-[75%]' : 'max-w-[60%] max-h-[60%]'
+                    }`}
                   />
                 </div>
 
