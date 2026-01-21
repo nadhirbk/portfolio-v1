@@ -13,8 +13,8 @@ const projects = [
     tags: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
     link: 'https://www.deborah-martin-services.fr/',
     color: '#1D2532',
-    logo: '/images/projects/deborah-logo.svg', // À ajouter
-    image: '/images/projects/deborah-screenshot.jpg', // À ajouter
+    logo: '/images/projects/deborah.png',
+    image: '/images/projects/deborah-screenshot.jpg',
   },
   {
     id: 2,
