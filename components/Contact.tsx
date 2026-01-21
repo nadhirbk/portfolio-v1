@@ -327,7 +327,7 @@ export default function Contact() {
           className="mt-16 pt-8 border-t border-background/20 text-center text-background/50 text-sm"
         >
           <p>© 2025 Nadhir B.K. — Tous droits réservés</p>
-          <p className="mt-2">Créé avec Next.js, Tailwind CSS & Framer Motion</p>
+          <p className="mt-2">Fait avec ❤️ en 2026</p>
         </motion.div>
       </div>
     </section>

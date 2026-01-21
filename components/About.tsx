@@ -36,22 +36,6 @@ export default function About() {
                 className="w-full h-full object-cover"
               />
             </motion.div>
-
-            {/* Accent decoration */}
-            <motion.div
-              className="absolute -bottom-6 -right-6 w-32 h-32 bg-background/20 rounded-full -z-10"
-              initial={{ scale: 0 }}
-              animate={isInView ? { scale: 1 } : {}}
-              transition={{ delay: 0.4, type: 'spring', stiffness: 200, damping: 20 }}
-            />
-
-            {/* Additional decoration */}
-            <motion.div
-              className="absolute -top-4 -left-4 w-20 h-20 border-2 border-background/30 rounded-full -z-10"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={isInView ? { scale: 1, opacity: 1 } : {}}
-              transition={{ delay: 0.6, type: 'spring', stiffness: 200, damping: 20 }}
-            />
           </motion.div>
 
           {/* Content */}
