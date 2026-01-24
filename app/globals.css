@@ -13,7 +13,6 @@
 
   body {
     @apply bg-background text-foreground font-satoshi antialiased;
-    cursor: none;
   }
 
   /* Selection styling */

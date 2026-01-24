@@ -1,4 +1,3 @@
-import CustomCursor from '@/components/CustomCursor'
 import ScrollProgress from '@/components/ScrollProgress'
 import { satoshi } from '@/lib/fonts'
 import type { Metadata } from 'next'
@@ -59,7 +58,6 @@ export default function RootLayout({
   return (
     <html lang="fr" className={satoshi.variable}>
       <body className="font-satoshi antialiased">
-        <CustomCursor />
         <ScrollProgress />
         <Toaster position="bottom-right" richColors />
         <a href="#main-content" className="skip-to-content">
