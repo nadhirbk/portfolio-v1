@@ -1,13 +1,16 @@
 'use client'
 
 import { useGSAP } from '@gsap/react'
-import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { LayoutGroup, motion } from 'motion/react'
 import Link from 'next/link'
 import { useRef } from 'react'
+import { TextRotate } from './ui/text-rotate'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const words = ['marquent.', 'se démarquent.', 'inspirent.', 'osent.']
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null)
@@ -79,34 +82,55 @@ export default function Hero() {
 
       {/* Hero Content - Centré verticalement */}
       <div className="flex-1 flex items-center justify-center px-8 md:px-16">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground text-center leading-[1.1] tracking-tight max-w-5xl"
-        >
-          Hello, moi c&apos;est{' '}
-          <span className="relative inline-block">
+        <LayoutGroup>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground text-center leading-[1.1] tracking-tight max-w-5xl"
+          >
+            Hello, moi c&apos;est Nadhir.
+            <br />
+            Je crée des sites web qui{' '}
             <motion.span
-              className="relative z-10 text-background px-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.8 }}
+              className="relative inline-flex"
+              layout
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             >
-              Nadhir
+              <motion.span
+                className="relative z-10 text-background px-3 inline-flex"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.6 }}
+              >
+                <TextRotate
+                  texts={words}
+                  rotationInterval={2400}
+                  staggerDuration={0}
+                  staggerFrom="first"
+                  initial={{ opacity: 0, filter: 'blur(50px)' }}
+                  animate={{ opacity: 1, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, filter: 'blur(50px)' }}
+                  animatePresenceMode="popLayout"
+                  mainClassName="overflow-hidden inline-flex"
+                  splitLevelClassName="overflow-hidden"
+                  transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+                />
+              </motion.span>
+              <motion.span
+                className="absolute inset-0 bg-foreground rounded-lg"
+                layout
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{
+                  scaleX: { duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] },
+                  layout: { type: 'spring', stiffness: 400, damping: 25 }
+                }}
+                style={{ transformOrigin: 'left' }}
+              />
             </motion.span>
-            <motion.span
-              className="absolute inset-0 bg-foreground"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              style={{ transformOrigin: 'left' }}
-            />
-          </span>
-          .
-          <br />
-          Je crée des sites web qui marquent.
-        </motion.h1>
+          </motion.h1>
+        </LayoutGroup>
       </div>
 
       {/* Bottom Links */}
