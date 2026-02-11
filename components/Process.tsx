@@ -44,7 +44,8 @@ export default function Process() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
       },
     },
   }
@@ -96,7 +97,7 @@ export default function Process() {
               <motion.div key={step.id} variants={itemVariants} className="relative group">
                 {/* Step Number */}
                 <motion.div
-                  className="absolute -top-4 -left-4 w-12 h-12 bg-background rounded-full flex items-center justify-center text-2xl font-black text-foreground z-10"
+                  className="absolute -top-4 -left-4 w-12 h-12 bg-accent rounded-full flex items-center justify-center text-2xl font-black text-white z-10"
                   whileHover={{ scale: 1.1, rotate: 10 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                 >

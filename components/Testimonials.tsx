@@ -39,7 +39,8 @@ export default function Testimonials() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
       },
     },
   }
@@ -92,7 +93,7 @@ export default function Testimonials() {
               className="group bg-background/5 hover:bg-background/10 p-8 rounded-2xl transition-colors duration-300"
             >
               {/* Quote icon */}
-              <Quote className="text-background/20 mb-6" size={40} />
+              <Quote className="text-background/20 mb-6 transition-all duration-300 group-hover:text-background/40 group-hover:scale-110" size={40} />
 
               {/* Testimonial text */}
               <p className="text-background/80 leading-relaxed mb-8 italic">

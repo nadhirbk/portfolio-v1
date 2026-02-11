@@ -59,21 +59,21 @@ export default function Hero() {
           <a
             href="#about"
             onClick={(e) => scrollToSection(e, '#about')}
-            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
           >
             À PROPOS
           </a>
           <a
             href="#testimonials"
             onClick={(e) => scrollToSection(e, '#testimonials')}
-            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
           >
             TÉMOIGNAGES
           </a>
           <a
             href="#contact"
             onClick={(e) => scrollToSection(e, '#contact')}
-            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
           >
             CONTACT
           </a>
@@ -118,7 +118,7 @@ export default function Hero() {
                 />
               </motion.span>
               <motion.span
-                className="absolute inset-0 bg-foreground rounded-lg"
+                className="absolute inset-0 bg-accent rounded-lg"
                 layout
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
@@ -143,14 +143,14 @@ export default function Hero() {
         <a
           href="#projects"
           onClick={(e) => scrollToSection(e, '#projects')}
-          className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+          className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
         >
           PROJETS WEB
         </a>
         <a
           href="#process"
           onClick={(e) => scrollToSection(e, '#process')}
-          className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors duration-300"
+          className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
         >
           MON APPROCHE
         </a>

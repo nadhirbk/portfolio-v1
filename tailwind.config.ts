@@ -13,7 +13,7 @@ const config: Config = {
         background: '#FFFFFF',
         foreground: '#0F0F0F',
         accent: {
-          DEFAULT: '#0F0F0F',
+          DEFAULT: '#7C3AED',
           foreground: '#FFFFFF',
         },
         muted: {

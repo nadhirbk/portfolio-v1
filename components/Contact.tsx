@@ -195,7 +195,7 @@ export default function Contact() {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-background text-foreground px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 group relative disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-accent text-white px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 group relative disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={{
                 scale: isSubmitting ? 1 : 1.02,
               }}
@@ -205,7 +205,7 @@ export default function Contact() {
               {isSubmitting ? (
                 <>
                   <motion.div
-                    className="w-5 h-5 border-2 border-foreground border-t-transparent rounded-full"
+                    className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                   />

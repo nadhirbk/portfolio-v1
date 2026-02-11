@@ -113,15 +113,15 @@ export default function Projects() {
                   <img
                     src={project.logo}
                     alt={`${project.title} logo`}
-                    className={`object-contain ${
+                    className={`object-contain transition-transform duration-300 group-hover:scale-105 ${
                       project.id === 1 ? 'max-w-[85%] max-h-[85%]' : 'max-w-[60%] max-h-[60%]'
                     }`}
                   />
                 </div>
 
                 {/* External link icon */}
-                <div className="absolute top-3 right-3 bg-white/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                  <ArrowUpRight size={16} className="text-foreground" />
+                <div className="absolute top-3 right-3 bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 group-hover:scale-110">
+                  <ArrowUpRight size={16} className="text-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
               </motion.a>
 
@@ -142,7 +142,7 @@ export default function Projects() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2.5 py-1 bg-background/10 text-background/70 text-xs font-medium rounded-md"
+                      className="px-2.5 py-1 bg-background/10 text-background/70 text-xs font-medium rounded-md transition-colors duration-300 group-hover:bg-background/20 group-hover:text-background/90"
                     >
                       {tag}
                     </span>
