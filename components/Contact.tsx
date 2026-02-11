@@ -108,11 +108,11 @@ export default function Contact() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="mb-16 text-center max-w-3xl mx-auto"
+          className="mb-8 md:mb-16 text-center max-w-3xl mx-auto"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-background"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 md:mb-6 text-background"
           >
             Travaillons ensemble
           </motion.h2>
@@ -126,7 +126,7 @@ export default function Contact() {
         </motion.div>
 
         {/* Grid 2 colonnes : Form + Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start max-w-6xl mx-auto">
           {/* Colonne gauche : Formulaire */}
           <motion.form
             initial={{ opacity: 0, x: -40 }}
@@ -134,9 +134,9 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
             onSubmit={handleSubmit}
-            className="space-y-6"
+            className="space-y-4 md:space-y-6"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div className="relative">
                 <label htmlFor="name" className="block text-sm font-bold mb-2 text-background">
                   Nom
@@ -150,7 +150,7 @@ export default function Contact() {
                   onFocus={() => setFocusedField('name')}
                   onBlur={() => setFocusedField(null)}
                   required
-                  className="w-full px-6 py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300"
+                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300"
                   placeholder="Votre nom"
                 />
               </div>
@@ -168,7 +168,7 @@ export default function Contact() {
                   onFocus={() => setFocusedField('email')}
                   onBlur={() => setFocusedField(null)}
                   required
-                  className="w-full px-6 py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300"
+                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300"
                   placeholder="votre@email.com"
                 />
               </div>
@@ -187,7 +187,7 @@ export default function Contact() {
                 onBlur={() => setFocusedField(null)}
                 required
                 rows={6}
-                className="w-full px-6 py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300 resize-none"
+                className="w-full px-4 md:px-6 py-3 md:py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300 resize-none"
                 placeholder="Parlez-moi de votre projet..."
               />
             </div>
@@ -195,7 +195,7 @@ export default function Contact() {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-accent text-white px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 group relative disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-accent text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg flex items-center justify-center gap-3 group relative disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={{
                 scale: isSubmitting ? 1 : 1.02,
               }}
@@ -323,7 +323,7 @@ export default function Contact() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 pt-8 border-t border-background/20 text-center text-background/50 text-sm"
+          className="mt-10 md:mt-16 pt-6 md:pt-8 border-t border-background/20 text-center text-background/50 text-sm"
         >
           <p>© 2025 Nadhir B.K. — Tous droits réservés</p>
           <p className="mt-2">Fait avec ❤️ en 2026</p>

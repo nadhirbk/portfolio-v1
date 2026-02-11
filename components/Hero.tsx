@@ -3,17 +3,24 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { LayoutGroup, motion } from 'motion/react'
+import { AnimatePresence, LayoutGroup, motion } from 'motion/react'
 import Link from 'next/link'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { TextRotate } from './ui/text-rotate'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const words = ['marquent.', 'se démarquent.', 'inspirent.', 'osent.']
 
+const navLinks = [
+  { label: 'À PROPOS', href: '#about' },
+  { label: 'TÉMOIGNAGES', href: '#testimonials' },
+  { label: 'CONTACT', href: '#contact' },
+]
+
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useGSAP(() => {
     gsap.to(heroRef.current, {
@@ -33,6 +40,7 @@ export default function Hero() {
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault()
+    setMenuOpen(false)
     const element = document.querySelector(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -46,7 +54,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full px-8 md:px-16 py-8 flex items-center justify-between"
+        className="w-full px-4 md:px-8 lg:px-16 py-6 md:py-8 flex items-center justify-between"
       >
         {/* Logo */}
         <Link href="/" className="text-xl font-bold">
@@ -54,40 +62,83 @@ export default function Hero() {
           <span className="text-foreground/40">B.K.</span>
         </Link>
 
-        {/* Navigation */}
-        <nav className="flex items-center gap-8">
-          <a
-            href="#about"
-            onClick={(e) => scrollToSection(e, '#about')}
-            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
-          >
-            À PROPOS
-          </a>
-          <a
-            href="#testimonials"
-            onClick={(e) => scrollToSection(e, '#testimonials')}
-            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
-          >
-            TÉMOIGNAGES
-          </a>
-          <a
-            href="#contact"
-            onClick={(e) => scrollToSection(e, '#contact')}
-            className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
-          >
-            CONTACT
-          </a>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => scrollToSection(e, link.href)}
+              className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
+
+        {/* Mobile Burger */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden relative w-10 h-10 flex items-center justify-center"
+          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={menuOpen}
+        >
+          <div className="flex flex-col items-center justify-center w-6 h-5">
+            <motion.span
+              animate={{ rotate: menuOpen ? 45 : 0, y: menuOpen ? 8 : 0 }}
+              transition={{ duration: 0.3 }}
+              className="block w-6 h-[2px] bg-foreground mb-[6px]"
+            />
+            <motion.span
+              animate={{ opacity: menuOpen ? 0 : 1 }}
+              transition={{ duration: 0.2 }}
+              className="block w-6 h-[2px] bg-foreground mb-[6px]"
+            />
+            <motion.span
+              animate={{ rotate: menuOpen ? -45 : 0, y: menuOpen ? -8 : 0 }}
+              transition={{ duration: 0.3 }}
+              className="block w-6 h-[2px] bg-foreground"
+            />
+          </div>
+        </button>
       </motion.header>
 
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-8 md:hidden"
+          >
+            {navLinks.map((link, i) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ delay: i * 0.1, duration: 0.3 }}
+                className="text-2xl font-bold text-foreground hover:text-accent transition-colors"
+              >
+                {link.label}
+              </motion.a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Hero Content - Centré verticalement */}
-      <div className="flex-1 flex items-center justify-center px-8 md:px-16">
+      <div className="flex-1 flex items-center justify-center px-4 md:px-8 lg:px-16">
         <LayoutGroup>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground text-center leading-[1.1] tracking-tight max-w-5xl"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground text-center leading-[1.1] tracking-tight max-w-5xl"
           >
             Hello, moi c&apos;est Nadhir.
             <br />
@@ -98,7 +149,7 @@ export default function Hero() {
               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             >
               <motion.span
-                className="relative z-10 text-background px-3 inline-flex"
+                className="relative z-10 text-background px-2 md:px-3 inline-flex"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, delay: 0.6 }}
@@ -138,19 +189,19 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full px-8 md:px-16 pb-12 flex items-center justify-center gap-12"
+        className="w-full px-4 md:px-8 lg:px-16 pb-8 md:pb-12 flex items-center justify-center gap-6 md:gap-12"
       >
         <a
           href="#projects"
           onClick={(e) => scrollToSection(e, '#projects')}
-          className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
+          className="text-[10px] md:text-[11px] font-medium tracking-[0.12em] md:tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
         >
           PROJETS WEB
         </a>
         <a
           href="#process"
           onClick={(e) => scrollToSection(e, '#process')}
-          className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
+          className="text-[10px] md:text-[11px] font-medium tracking-[0.12em] md:tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
         >
           MON APPROCHE
         </a>

@@ -75,9 +75,9 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          className="mb-8 md:mb-16 text-center"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-background mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-background mb-4 md:mb-6">
             Projets récents
           </h2>
           <p className="text-lg md:text-xl text-background/70 max-w-2xl mx-auto leading-relaxed">
@@ -88,7 +88,7 @@ export default function Projects() {
 
         {/* Projects Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

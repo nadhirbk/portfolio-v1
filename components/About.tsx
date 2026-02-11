@@ -16,7 +16,7 @@ export default function About() {
   return (
     <section id="about" className="section-spacing section-padding bg-foreground overflow-hidden">
       <div className="container-max">
-        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-center">
           {/* Image placeholder */}
           <motion.div
             initial={{ opacity: 0, x: -80 }}
@@ -25,7 +25,7 @@ export default function About() {
             className="relative"
           >
             <motion.div
-              className="aspect-square rounded-3xl overflow-hidden bg-background/10 relative"
+              className="aspect-video sm:aspect-square rounded-3xl overflow-hidden bg-background/10 relative"
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
@@ -44,7 +44,7 @@ export default function About() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
           >
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-background mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-background mb-6 md:mb-8">
               À propos
             </h2>
 
@@ -81,7 +81,7 @@ export default function About() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 md:gap-6 mt-10">
+            <div className="grid grid-cols-3 gap-2 md:gap-4 lg:gap-6 mt-8 md:mt-10">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -91,7 +91,7 @@ export default function About() {
                   className="text-center md:text-left"
                 >
                   <motion.p
-                    className="text-3xl md:text-4xl font-black text-background"
+                    className="text-2xl md:text-3xl lg:text-4xl font-black text-background"
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                   >

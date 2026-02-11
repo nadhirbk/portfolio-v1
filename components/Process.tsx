@@ -72,9 +72,9 @@ export default function Process() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          className="mb-8 md:mb-16 text-center"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 md:mb-6">
             Comment je travaille
           </h2>
           <p className="text-lg md:text-xl text-background/70 max-w-3xl mx-auto leading-relaxed">
@@ -85,7 +85,7 @@ export default function Process() {
 
         {/* Steps Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -97,7 +97,7 @@ export default function Process() {
               <motion.div key={step.id} variants={itemVariants} className="relative group">
                 {/* Step Number */}
                 <motion.div
-                  className="absolute -top-4 -left-4 w-12 h-12 bg-accent rounded-full flex items-center justify-center text-2xl font-black text-white z-10"
+                  className="absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-12 md:h-12 bg-accent rounded-full flex items-center justify-center text-xl md:text-2xl font-black text-white z-10"
                   whileHover={{ scale: 1.1, rotate: 10 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                 >
@@ -106,7 +106,7 @@ export default function Process() {
 
                 {/* Card */}
                 <motion.div
-                  className="bg-background/5 backdrop-blur-sm border border-background/10 rounded-2xl p-6 h-full flex flex-col"
+                  className="bg-background/5 backdrop-blur-sm border border-background/10 rounded-2xl p-4 md:p-6 h-full flex flex-col"
                   whileHover={{
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     y: -8,

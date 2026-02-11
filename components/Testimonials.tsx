@@ -67,9 +67,9 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          className="mb-8 md:mb-16 text-center"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-background mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-background mb-4 md:mb-6">
             Ils livrent leur expérience
           </h2>
           <p className="text-lg md:text-xl text-background/70 max-w-2xl mx-auto leading-relaxed">
@@ -90,10 +90,10 @@ export default function Testimonials() {
             <motion.article
               key={testimonial.id}
               variants={itemVariants}
-              className="group bg-background/5 hover:bg-background/10 p-8 rounded-2xl transition-colors duration-300"
+              className="group bg-background/5 hover:bg-background/10 p-5 md:p-8 rounded-2xl transition-colors duration-300"
             >
               {/* Quote icon */}
-              <Quote className="text-background/20 mb-6 transition-all duration-300 group-hover:text-background/40 group-hover:scale-110" size={40} />
+              <Quote className="text-background/20 mb-4 md:mb-6 transition-all duration-300 group-hover:text-background/40 group-hover:scale-110 w-8 h-8 md:w-10 md:h-10" />
 
               {/* Testimonial text */}
               <p className="text-background/80 leading-relaxed mb-8 italic">
