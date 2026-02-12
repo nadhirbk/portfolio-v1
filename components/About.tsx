@@ -19,8 +19,8 @@ export default function About() {
         <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-center">
           {/* Image placeholder */}
           <motion.div
-            initial={{ opacity: 0, x: -80 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
             className="relative"
           >
@@ -40,8 +40,8 @@ export default function About() {
 
           {/* Content */}
           <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-background mb-6 md:mb-8">
