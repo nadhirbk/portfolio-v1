@@ -40,7 +40,7 @@ const steps = [
 ]
 
 export default function Process() {
-  const [openStep, setOpenStep] = useState<number | null>(1)
+  const [openStep, setOpenStep] = useState<number | null>(null)
 
   const containerVariants = {
     hidden: { opacity: 0 },
