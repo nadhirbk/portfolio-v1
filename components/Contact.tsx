@@ -325,7 +325,7 @@ export default function Contact() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-10 md:mt-16 pt-6 md:pt-8 border-t border-background/20 text-center text-background/50 text-sm"
         >
-          <p>© 2025 Nadhir B.K. — Tous droits réservés</p>
+          <p>© 2026 Nadhir B.K. — Tous droits réservés</p>
           <p className="mt-2">Fait avec ❤️ en 2026</p>
         </motion.div>
       </div>
