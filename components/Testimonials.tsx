@@ -101,7 +101,7 @@ export default function Testimonials() {
         {/* Mobile Carousel */}
         <div className="md:hidden">
           <div className="relative overflow-hidden">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <motion.article
                 key={testimonial.id}
                 custom={direction}
@@ -109,7 +109,7 @@ export default function Testimonials() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={1}

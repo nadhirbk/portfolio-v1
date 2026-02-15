@@ -99,9 +99,10 @@ export default function Process() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: step.id * 0.1 }}
               >
+                <div className="bg-background/5 border border-background/10 rounded-xl overflow-hidden">
                 <button
                   onClick={() => setOpenStep(isOpen ? null : step.id)}
-                  className="w-full flex items-center gap-4 p-4 bg-background/5 border border-background/10 rounded-xl text-left"
+                  className="w-full flex items-center gap-4 p-4 text-left"
                 >
                   <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-lg font-black text-white flex-shrink-0">
                     {step.id}
@@ -127,7 +128,7 @@ export default function Process() {
                       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-4 pb-4 pt-3 ml-14">
+                      <div className="px-4 pb-4 pt-1 ml-14">
                         <p className="text-background/70 text-sm leading-relaxed mb-3">
                           {step.description}
                         </p>
@@ -138,6 +139,7 @@ export default function Process() {
                     </motion.div>
                   )}
                 </AnimatePresence>
+              </div>
               </motion.div>
             )
           })}
