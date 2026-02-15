@@ -257,7 +257,7 @@ export default function Contact() {
                     href="mailto:dev.nadhirbk@gmail.com"
                     className="text-background/70 hover:text-background transition-colors"
                   >
-                    contact@nadhirbk.com
+                    dev.nadhirbk@gmail.com
                   </a>
                 </div>
               </div>

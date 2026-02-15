@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     // Envoi de l'email
     const { data, error } = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>', // Remplace par ton domaine vérifié
-      to: ['contact@nadhirbk.com'], // Ton email
+      to: ['dev.nadhirbk@gmail.com'], // Ton email
       replyTo: email,
       subject: `Nouveau message de ${name}`,
       html: `
