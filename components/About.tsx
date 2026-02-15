@@ -51,12 +51,12 @@ export default function About() {
             <div className="space-y-6 text-base md:text-lg text-background/70 leading-relaxed">
               <p>
                 Hey ! Moi c&apos;est <strong className="text-background">Nadhir</strong>, créateur
-                web passionné par le design et l&apos;innovation digitale.
+                web passionné par le <strong className="text-background">design minimaliste</strong> et{' '}
+                le <strong className="text-background">détail qui fait la différence</strong>.
               </p>
 
               <p>
-                Je ne suis pas issu d&apos;une école d&apos;ingénieurs, mais j&apos;ai une chose que
-                beaucoup n&apos;ont pas :{' '}
+                Je m&apos;implique dans chaque projet comme si c&apos;était le mien, avec{' '}
                 <strong className="text-background">
                   une vraie compréhension des besoins clients
                 </strong>{' '}
@@ -65,9 +65,11 @@ export default function About() {
               </p>
 
               <p>
-                Avec les outils modernes (Next.js, React, Framer Motion) et l&apos;IA à mes côtés
-                (GitHub Copilot, Claude), je crée des sites web qui ne se contentent pas d&apos;être
-                beaux — ils <strong className="text-background">convertissent</strong> et{' '}
+                Armé des technologies modernes (Next.js, React, Framer Motion) et des{' '}
+                <strong className="text-background">outils d&apos;IA les plus avancés</strong>,
+                je vais plus vite, plus loin, et plus efficacement — pour des sites qui ne se
+                contentent pas d&apos;être beaux, ils{' '}
+                <strong className="text-background">convertissent</strong> et{' '}
                 <strong className="text-background">marquent les esprits</strong>.
               </p>
 
@@ -76,7 +78,7 @@ export default function About() {
                 <strong className="text-background">
                   Agile, transparente, et orientée résultats
                 </strong>
-                . Vous avez une idée ? Je la transforme en réalité digitale, avec style.
+                . De l&apos;idée au site en ligne, vous êtes impliqué à chaque étape.
               </p>
             </div>
 
