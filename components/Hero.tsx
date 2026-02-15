@@ -12,11 +12,18 @@ gsap.registerPlugin(ScrollTrigger)
 
 const words = ['marquent.', 'se démarquent.', 'inspirent.', 'osent.']
 
-const navLinks = [
+const headerLinks = [
   { label: 'À PROPOS', href: '#about' },
   { label: 'TÉMOIGNAGES', href: '#testimonials' },
   { label: 'CONTACT', href: '#contact' },
 ]
+
+const bottomLinks = [
+  { label: 'PROJETS WEB', href: '#projects' },
+  { label: 'MON APPROCHE', href: '#process' },
+]
+
+const allLinks = [...bottomLinks, ...headerLinks]
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null)
@@ -97,7 +104,7 @@ export default function Hero() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-8 md:hidden"
           >
-            {navLinks.map((link, i) => (
+            {allLinks.map((link, i) => (
               <motion.a
                 key={link.href}
                 href={link.href}
@@ -132,7 +139,7 @@ export default function Hero() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {headerLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -203,7 +210,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full px-4 md:px-8 lg:px-16 pb-8 md:pb-12 flex items-center justify-center gap-6 md:gap-12"
+          className="w-full px-4 md:px-8 lg:px-16 pb-8 md:pb-12 hidden md:flex items-center justify-center gap-6 md:gap-12"
         >
           <a
             href="#projects"
