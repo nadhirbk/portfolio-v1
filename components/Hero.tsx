@@ -13,8 +13,8 @@ gsap.registerPlugin(ScrollTrigger)
 const words = ['marquent.', 'se démarquent.', 'inspirent.', 'osent.']
 
 const headerLinks = [
-  { label: 'À PROPOS', href: '#about' },
   { label: 'TÉMOIGNAGES', href: '#testimonials' },
+  { label: 'À PROPOS', href: '#about' },
   { label: 'CONTACT', href: '#contact' },
 ]
 
@@ -57,7 +57,7 @@ export default function Hero() {
     }
     // Delay scroll on mobile to let overlay exit animation finish
     if (wasMenuOpen) {
-      setTimeout(scroll, 350)
+      setTimeout(scroll, 150)
     } else {
       scroll()
     }

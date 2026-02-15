@@ -39,8 +39,10 @@ export default function Testimonials() {
   const [direction, setDirection] = useState(0)
 
   const paginate = (dir: number) => {
+    const next = current + dir
+    if (next < 0 || next >= testimonials.length) return
     setDirection(dir)
-    setCurrent((prev) => (prev + dir + testimonials.length) % testimonials.length)
+    setCurrent(next)
   }
 
   const swipeConfidenceThreshold = 10000

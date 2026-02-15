@@ -48,8 +48,10 @@ export default function Projects() {
   const [direction, setDirection] = useState(0)
 
   const paginate = (dir: number) => {
+    const next = current + dir
+    if (next < 0 || next >= projects.length) return
     setDirection(dir)
-    setCurrent((prev) => (prev + dir + projects.length) % projects.length)
+    setCurrent(next)
   }
 
   const swipeConfidenceThreshold = 10000
