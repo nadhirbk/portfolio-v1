@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Quote } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { useState } from 'react'
 
 const testimonials = [
   {
@@ -11,7 +12,7 @@ const testimonials = [
     company: 'Deborah Martin Services',
     testimonial:
       "Nadhir a parfaitement compris ma vision et l'a transformée en un site élégant qui me ressemble. Son approche collaborative et sa réactivité ont fait toute la différence.",
-    image: '/images/testimonials/deborah.jpg', // À ajouter
+    image: '/images/testimonials/deborah.jpg',
   },
   {
     id: 2,
@@ -20,7 +21,7 @@ const testimonials = [
     company: 'Attentive Strategy',
     testimonial:
       "Un travail d'une qualité exceptionnelle. Nadhir allie créativité et expertise technique pour des résultats qui dépassent les attentes. Je recommande les yeux fermés.",
-    image: '/images/testimonials/sarah.jpg', // À ajouter
+    image: '/images/testimonials/sarah.jpg',
   },
   {
     id: 3,
@@ -29,11 +30,28 @@ const testimonials = [
     company: 'Vinyfy',
     testimonial:
       'Nadhir a su créer une identité visuelle forte pour notre marketplace. Son sens du détail et sa force de proposition ont été des atouts majeurs pour le projet.',
-    image: '/images/testimonials/marc.jpg', // À ajouter
+    image: '/images/testimonials/marc.jpg',
   },
 ]
 
 export default function Testimonials() {
+  const [current, setCurrent] = useState(0)
+  const [direction, setDirection] = useState(0)
+
+  const paginate = (dir: number) => {
+    setDirection(dir)
+    setCurrent((prev) => (prev + dir + testimonials.length) % testimonials.length)
+  }
+
+  const swipeConfidenceThreshold = 10000
+  const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity
+
+  const slideVariants = {
+    enter: (dir: number) => ({ x: dir > 0 ? 300 : -300, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir < 0 ? 300 : -300, opacity: 0 }),
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -58,6 +76,8 @@ export default function Testimonials() {
     },
   }
 
+  const testimonial = testimonials[current]
+
   return (
     <section id="testimonials" className="section-spacing section-padding bg-foreground">
       <div className="container-max">
@@ -78,9 +98,86 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        {/* Testimonials Grid */}
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div className="relative overflow-hidden">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.article
+                key={testimonial.id}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={(_e, { offset, velocity }) => {
+                  const swipe = swipePower(offset.x, velocity.x)
+                  if (swipe < -swipeConfidenceThreshold) {
+                    paginate(1)
+                  } else if (swipe > swipeConfidenceThreshold) {
+                    paginate(-1)
+                  }
+                }}
+                className="bg-background/5 p-5 rounded-2xl"
+              >
+                <Quote className="text-background/20 mb-4 w-8 h-8" />
+                <p className="text-background/80 leading-relaxed mb-6 italic">
+                  &ldquo;{testimonial.testimonial}&rdquo;
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-background/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-lg font-bold text-background/50">
+                      {testimonial.name.charAt(0)}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="font-bold text-background">{testimonial.name}</p>
+                    <p className="text-sm text-background/60">
+                      {testimonial.role}, {testimonial.company}
+                    </p>
+                  </div>
+                </div>
+              </motion.article>
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation: arrows + dots */}
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <button
+              onClick={() => paginate(-1)}
+              className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 active:bg-background/20"
+              aria-label="Témoignage précédent"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <div className="flex gap-2">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i) }}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === current ? 'w-6 bg-accent' : 'w-2 bg-background/30'
+                  }`}
+                  aria-label={`Témoignage ${i + 1}`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => paginate(1)}
+              className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 active:bg-background/20"
+              aria-label="Témoignage suivant"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -92,24 +189,16 @@ export default function Testimonials() {
               variants={itemVariants}
               className="group bg-background/5 hover:bg-background/10 p-5 md:p-8 rounded-2xl transition-colors duration-300"
             >
-              {/* Quote icon */}
               <Quote className="text-background/20 mb-4 md:mb-6 transition-all duration-300 group-hover:text-background/40 group-hover:scale-110 w-8 h-8 md:w-10 md:h-10" />
-
-              {/* Testimonial text */}
               <p className="text-background/80 leading-relaxed mb-8 italic">
                 &ldquo;{testimonial.testimonial}&rdquo;
               </p>
-
-              {/* Author info */}
               <div className="flex items-center gap-4">
-                {/* Avatar placeholder */}
                 <div className="w-12 h-12 bg-background/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-lg font-bold text-background/50">
                     {testimonial.name.charAt(0)}
                   </span>
                 </div>
-
-                {/* Name and role */}
                 <div>
                   <p className="font-bold text-background">{testimonial.name}</p>
                   <p className="text-sm text-background/60">

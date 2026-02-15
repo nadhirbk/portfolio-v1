@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Eye, MessageSquare, Rocket, Zap } from 'lucide-react'
+import { useState } from 'react'
 
 const steps = [
   {
@@ -39,6 +40,8 @@ const steps = [
 ]
 
 export default function Process() {
+  const [openStep, setOpenStep] = useState<number | null>(1)
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -83,9 +86,66 @@ export default function Process() {
           </p>
         </motion.div>
 
-        {/* Steps Grid */}
+        {/* Mobile Accordion */}
+        <div className="md:hidden space-y-3">
+          {steps.map((step) => {
+            const Icon = step.icon
+            const isOpen = openStep === step.id
+            return (
+              <motion.div
+                key={step.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: step.id * 0.1 }}
+              >
+                <button
+                  onClick={() => setOpenStep(isOpen ? null : step.id)}
+                  className="w-full flex items-center gap-4 p-4 bg-background/5 border border-background/10 rounded-xl text-left"
+                >
+                  <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-lg font-black text-white flex-shrink-0">
+                    {step.id}
+                  </div>
+                  <div className="flex-1 flex items-center gap-3">
+                    <Icon size={20} className="text-background/60 flex-shrink-0" />
+                    <span className="font-bold text-background">{step.title}</span>
+                  </div>
+                  <motion.span
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-background/40 text-xl flex-shrink-0"
+                  >
+                    ▾
+                  </motion.span>
+                </button>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-4 pb-4 pt-3 ml-14">
+                        <p className="text-background/70 text-sm leading-relaxed mb-3">
+                          {step.description}
+                        </p>
+                        <span className="inline-block px-3 py-1.5 bg-background/20 text-background text-xs font-bold rounded-full">
+                          {step.highlight}
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* Desktop Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -97,7 +157,7 @@ export default function Process() {
               <motion.div key={step.id} variants={itemVariants} className="relative group">
                 {/* Step Number */}
                 <motion.div
-                  className="absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-12 md:h-12 bg-accent rounded-full flex items-center justify-center text-xl md:text-2xl font-black text-white z-10"
+                  className="absolute -top-4 -left-4 w-12 h-12 bg-accent rounded-full flex items-center justify-center text-2xl font-black text-white z-10"
                   whileHover={{ scale: 1.1, rotate: 10 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                 >
@@ -106,7 +166,7 @@ export default function Process() {
 
                 {/* Card */}
                 <motion.div
-                  className="bg-background/5 backdrop-blur-sm border border-background/10 rounded-2xl p-4 md:p-6 h-full flex flex-col"
+                  className="bg-background/5 backdrop-blur-sm border border-background/10 rounded-2xl p-6 h-full flex flex-col"
                   whileHover={{
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     y: -8,

@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
 
 const projects = [
   {
@@ -43,6 +44,23 @@ const projects = [
 ]
 
 export default function Projects() {
+  const [current, setCurrent] = useState(0)
+  const [direction, setDirection] = useState(0)
+
+  const paginate = (dir: number) => {
+    setDirection(dir)
+    setCurrent((prev) => (prev + dir + projects.length) % projects.length)
+  }
+
+  const swipeConfidenceThreshold = 10000
+  const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity
+
+  const slideVariants = {
+    enter: (dir: number) => ({ x: dir > 0 ? 300 : -300, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir < 0 ? 300 : -300, opacity: 0 }),
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -66,6 +84,8 @@ export default function Projects() {
     },
   }
 
+  const project = projects[current]
+
   return (
     <section id="projects" className="section-spacing section-padding bg-foreground relative z-10">
       <div className="container-max">
@@ -86,9 +106,113 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div className="relative overflow-hidden">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.article
+                key={project.id}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={(_e, { offset, velocity }) => {
+                  const swipe = swipePower(offset.x, velocity.x)
+                  if (swipe < -swipeConfidenceThreshold) {
+                    paginate(1)
+                  } else if (swipe > swipeConfidenceThreshold) {
+                    paginate(-1)
+                  }
+                }}
+                className="group"
+              >
+                {/* Image Container */}
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block relative overflow-hidden rounded-xl mb-4 aspect-[4/3]"
+                >
+                  <div className="absolute inset-0" style={{ backgroundColor: project.color }} />
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <img
+                      src={project.logo}
+                      alt={`${project.title} logo`}
+                      className={`object-contain ${
+                        project.id === 1 ? 'max-w-[85%] max-h-[85%]' : 'max-w-[60%] max-h-[60%]'
+                      }`}
+                    />
+                  </div>
+                  <div className="absolute top-3 right-3 bg-white p-2 rounded-full z-20">
+                    <ArrowUpRight size={16} className="text-foreground" />
+                  </div>
+                </a>
+
+                {/* Content */}
+                <div>
+                  <p className="text-xs font-bold text-background/50 mb-1 uppercase tracking-wider">
+                    {project.category}
+                  </p>
+                  <h3 className="text-xl font-bold text-background mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-background/60 leading-relaxed mb-3">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 bg-background/10 text-background/70 text-xs font-medium rounded-md"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation: arrows + dots */}
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <button
+              onClick={() => paginate(-1)}
+              className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 active:bg-background/20"
+              aria-label="Projet précédent"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <div className="flex gap-2">
+              {projects.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i) }}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === current ? 'w-6 bg-accent' : 'w-2 bg-background/30'
+                  }`}
+                  aria-label={`Projet ${i + 1}`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => paginate(1)}
+              className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 active:bg-background/20"
+              aria-label="Projet suivant"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -96,7 +220,6 @@ export default function Projects() {
         >
           {projects.map((project) => (
             <motion.article key={project.id} variants={itemVariants} className="group">
-              {/* Image Container */}
               <motion.a
                 href={project.link}
                 target="_blank"
@@ -105,10 +228,7 @@ export default function Projects() {
                 whileHover={{ y: -8 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               >
-                {/* Background coloré */}
                 <div className="absolute inset-0" style={{ backgroundColor: project.color }} />
-
-                {/* Logo (reste visible) */}
                 <div className="absolute inset-0 flex items-center justify-center z-10">
                   <img
                     src={project.logo}
@@ -118,14 +238,10 @@ export default function Projects() {
                     }`}
                   />
                 </div>
-
-                {/* External link icon */}
                 <div className="absolute top-3 right-3 bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 group-hover:scale-110">
                   <ArrowUpRight size={16} className="text-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
               </motion.a>
-
-              {/* Content */}
               <div>
                 <p className="text-xs font-bold text-background/50 mb-1 uppercase tracking-wider">
                   {project.category}
@@ -136,8 +252,6 @@ export default function Projects() {
                 <p className="text-sm text-background/60 leading-relaxed mb-3">
                   {project.description}
                 </p>
-
-                {/* Tags */}
                 <div className="flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
                     <span
