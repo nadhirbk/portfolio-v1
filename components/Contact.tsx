@@ -59,7 +59,7 @@ export default function Contact() {
   const socialLinks = [
     {
       icon: Mail,
-      href: 'mailto:contact@nadhirbk.com',
+      href: 'mailto:dev.nadhirbk@gmail.com',
       label: 'Envoyer un email',
     },
     {
@@ -254,7 +254,7 @@ export default function Contact() {
                 <div>
                   <p className="font-bold mb-1 text-background">Email</p>
                   <a
-                    href="mailto:contact@nadhirbk.com"
+                    href="mailto:dev.nadhirbk@gmail.com"
                     className="text-background/70 hover:text-background transition-colors"
                   >
                     contact@nadhirbk.com
