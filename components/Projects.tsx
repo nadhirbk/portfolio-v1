@@ -281,13 +281,20 @@ export default function Projects() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-12 md:mt-16 text-center"
         >
-          <Link
-            href="/projets"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white text-sm font-semibold rounded-xl hover:bg-accent/90 transition-colors duration-300"
+          <motion.div
+            className="inline-block"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
-            Voir tous les projets
-            <ArrowUpRight size={15} />
-          </Link>
+            <Link
+              href="/projets"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white text-sm font-semibold rounded-xl"
+            >
+              Voir tous les projets
+              <ArrowUpRight size={15} />
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </section>
