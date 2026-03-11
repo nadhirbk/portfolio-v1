@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger)
 const words = ['marquent.', 'se démarquent.', 'inspirent.', 'osent.']
 
 const headerLinks = [
-  { label: 'PROJETS', href: '#projets' },
+  { label: 'PROJETS', href: '/projets' },
   { label: 'TÉMOIGNAGES', href: '#testimonials' },
   { label: 'À PROPOS', href: '#about' },
   { label: 'CONTACT', href: '#contact' },
@@ -46,12 +46,17 @@ export default function Hero() {
     })
   }, [])
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Page links (e.g. /projets) — just close menu and navigate normally
+    if (!href.startsWith('#')) {
+      setMenuOpen(false)
+      return
+    }
     e.preventDefault()
     const wasMenuOpen = menuOpen
     setMenuOpen(false)
     const scroll = () => {
-      const element = document.querySelector(sectionId)
+      const element = document.querySelector(href)
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
@@ -159,17 +164,17 @@ export default function Hero() {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground text-center leading-[1.1] tracking-tight max-w-5xl">
               <motion.span
                 className="block"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+                transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
               >
                 Hello, moi c&apos;est Nadhir.
               </motion.span>
               <motion.span
                 className="block"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+                transition={{ duration: 0.6, delay: 0.55, ease: 'easeOut' }}
               >
                 Je crée des sites web qui{' '}
                 <motion.span
@@ -181,7 +186,7 @@ export default function Hero() {
                     className="relative z-10 text-background px-2 md:px-3 inline-flex"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.8 }}
+                    transition={{ duration: 0.3, delay: 1.0 }}
                   >
                     <TextRotate
                       texts={words}
@@ -203,7 +208,7 @@ export default function Hero() {
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{
-                      scaleX: { duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] },
+                      scaleX: { duration: 0.6, delay: 0.75, ease: [0.22, 1, 0.36, 1] },
                       layout: { type: 'spring', stiffness: 400, damping: 25 }
                     }}
                     style={{ transformOrigin: 'left' }}

@@ -138,8 +138,10 @@ export default function Projects() {
                 className="group"
               >
                 {/* Image Container */}
-                <Link
-                  href={`/projets#${project.slug}`}
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block relative overflow-hidden rounded-xl mb-4 aspect-[4/3]"
                 >
                   <div className="absolute inset-0" style={{ backgroundColor: project.color }} />
@@ -155,7 +157,7 @@ export default function Projects() {
                   <div className="absolute top-3 right-3 bg-white p-2 rounded-full z-20">
                     <ArrowUpRight size={16} className="text-foreground" />
                   </div>
-                </Link>
+                </a>
 
                 {/* Content */}
                 <div>
@@ -224,27 +226,28 @@ export default function Projects() {
         >
           {projects.map((project) => (
             <motion.article key={project.id} variants={itemVariants} className="group">
-              <motion.div
+              <motion.a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block relative overflow-hidden rounded-xl mb-4 aspect-[4/3]"
                 whileHover={{ y: -8 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               >
-                <Link href={`/projets#${project.slug}`} className="block absolute inset-0">
-                  <div className="absolute inset-0" style={{ backgroundColor: project.color }} />
-                  <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <img
-                      src={project.logo}
-                      alt={`${project.title} logo`}
-                      className={`object-contain transition-transform duration-300 group-hover:scale-105 ${
-                        project.id === 1 ? 'max-w-[85%] max-h-[85%]' : 'max-w-[60%] max-h-[60%]'
-                      }`}
-                    />
-                  </div>
-                  <div className="absolute top-3 right-3 bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 group-hover:scale-110">
-                    <ArrowUpRight size={16} className="text-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </div>
-                </Link>
-              </motion.div>
+                <div className="absolute inset-0" style={{ backgroundColor: project.color }} />
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <img
+                    src={project.logo}
+                    alt={`${project.title} logo`}
+                    className={`object-contain transition-transform duration-300 group-hover:scale-105 ${
+                      project.id === 1 ? 'max-w-[85%] max-h-[85%]' : 'max-w-[60%] max-h-[60%]'
+                    }`}
+                  />
+                </div>
+                <div className="absolute top-3 right-3 bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 group-hover:scale-110">
+                  <ArrowUpRight size={16} className="text-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+              </motion.a>
               <div>
                 <p className="text-xs font-bold text-background/50 mb-1 uppercase tracking-wider">
                   {project.category}
@@ -268,6 +271,23 @@ export default function Projects() {
               </div>
             </motion.article>
           ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-12 md:mt-16 text-center"
+        >
+          <Link
+            href="/projets"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-background/20 text-background/70 text-sm font-medium rounded-xl hover:border-background/40 hover:text-background transition-colors duration-300"
+          >
+            Voir tous les projets
+            <ArrowUpRight size={15} />
+          </Link>
         </motion.div>
       </div>
     </section>
