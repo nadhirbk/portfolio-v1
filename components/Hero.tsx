@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger)
 const words = ['marquent.', 'se démarquent.', 'inspirent.', 'osent.']
 
 const headerLinks = [
-  { label: 'PROJETS', href: '/projets' },
+  { label: 'MES PROJETS', href: '/projets' },
   { label: 'TÉMOIGNAGES', href: '#testimonials' },
   { label: 'À PROPOS', href: '#about' },
   { label: 'CONTACT', href: '#contact' },
