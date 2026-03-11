@@ -283,7 +283,7 @@ export default function Projects() {
         >
           <Link
             href="/projets"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-background/20 text-background/70 text-sm font-medium rounded-xl hover:border-background/40 hover:text-background transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white text-sm font-semibold rounded-xl hover:bg-accent/90 transition-colors duration-300"
           >
             Voir tous les projets
             <ArrowUpRight size={15} />

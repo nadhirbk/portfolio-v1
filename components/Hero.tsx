@@ -20,7 +20,6 @@ const headerLinks = [
 ]
 
 const bottomLinks = [
-  { label: 'PROJETS WEB', href: '#projets' },
   { label: 'MON APPROCHE', href: '#process' },
 ]
 
@@ -164,17 +163,17 @@ export default function Hero() {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground text-center leading-[1.1] tracking-tight max-w-5xl">
               <motion.span
                 className="block"
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+                initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.55, delay: 0.1, ease: [0.34, 1.56, 0.64, 1] }}
               >
                 Hello, moi c&apos;est Nadhir.
               </motion.span>
               <motion.span
                 className="block"
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.55, ease: 'easeOut' }}
+                initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.55, delay: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
               >
                 Je crée des sites web qui{' '}
                 <motion.span
@@ -226,13 +225,6 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="w-full px-4 md:px-8 lg:px-16 pb-8 md:pb-12 hidden md:flex items-center justify-center gap-6 md:gap-12"
         >
-          <a
-            href="#projets"
-            onClick={(e) => scrollToSection(e, '#projets')}
-            className="text-[10px] md:text-[11px] font-medium tracking-[0.12em] md:tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
-          >
-            PROJETS WEB
-          </a>
           <a
             href="#process"
             onClick={(e) => scrollToSection(e, '#process')}
