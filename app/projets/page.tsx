@@ -64,7 +64,7 @@ export default function ProjetsPage() {
               size={16}
               className="group-hover:-translate-x-1 transition-transform duration-300"
             />
-            Retour à l'accueil
+            Retour à l&apos;accueil
           </Link>
         </div>
 
