@@ -16,14 +16,9 @@ const headerLinks = [
   { label: 'MES PROJETS', href: '/projets' },
   { label: 'TÉMOIGNAGES', href: '#testimonials' },
   { label: 'À PROPOS', href: '#about' },
+  { label: 'MON APPROCHE', href: '#process' },
   { label: 'CONTACT', href: '#contact' },
 ]
-
-const bottomLinks = [
-  { label: 'MON APPROCHE', href: '#process' },
-]
-
-const allLinks = [...bottomLinks, ...headerLinks]
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null)
@@ -109,7 +104,7 @@ export default function Hero() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-8 md:hidden"
           >
-            {allLinks.map((link, i) => (
+            {headerLinks.map((link, i) => (
               <motion.a
                 key={link.href}
                 href={link.href}
@@ -218,21 +213,6 @@ export default function Hero() {
           </LayoutGroup>
         </div>
 
-        {/* Bottom Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full px-4 md:px-8 lg:px-16 pb-8 md:pb-12 hidden md:flex items-center justify-center gap-6 md:gap-12"
-        >
-          <a
-            href="#process"
-            onClick={(e) => scrollToSection(e, '#process')}
-            className="text-[10px] md:text-[11px] font-medium tracking-[0.12em] md:tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
-          >
-            MON APPROCHE
-          </a>
-        </motion.div>
       </section>
     </>
   )
