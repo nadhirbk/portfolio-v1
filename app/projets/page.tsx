@@ -122,7 +122,7 @@ export default function ProjetsPage() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-background/60 hover:text-background text-sm font-semibold transition-colors duration-200"
+                  className="hidden md:inline-flex items-center gap-1.5 text-background/60 hover:text-background text-sm font-semibold transition-colors duration-200"
                 >
                   Voir le site
                   <ArrowUpRight size={14} />
