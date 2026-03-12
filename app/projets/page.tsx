@@ -50,9 +50,9 @@ const projects = [
 
 export default function ProjetsPage() {
   return (
-    <main className="min-h-screen bg-foreground section-padding">
+    <main className="min-h-screen bg-foreground">
       <Navbar />
-      <div className="container-max">
+      <div className="container-max px-4 md:px-8 lg:px-16">
 
         <ProjetsHeader />
 

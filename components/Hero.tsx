@@ -127,36 +127,36 @@ export default function Hero() {
         )}
       </AnimatePresence>
 
+      {/* Desktop Header Navigation — sticky, outside heroRef so GSAP doesn't affect it */}
+      <motion.header
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="sticky top-0 z-30 w-full px-4 md:px-8 lg:px-16 py-6 md:py-8 hidden md:flex items-center justify-between bg-white"
+      >
+        {/* Logo */}
+        <Link href="/" className="text-xl font-bold">
+          <span className="text-foreground">Nadhir</span>
+          <span className="text-foreground/40">B.K.</span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="flex items-center gap-8">
+          {headerLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => scrollToSection(e, link.href)}
+              className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </motion.header>
+
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-screen flex flex-col bg-white z-0">
-        {/* Desktop Header Navigation */}
-        <motion.header
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full px-4 md:px-8 lg:px-16 py-6 md:py-8 flex items-center justify-between"
-        >
-          {/* Logo */}
-          <Link href="/" className="text-xl font-bold">
-            <span className="text-foreground">Nadhir</span>
-            <span className="text-foreground/40">B.K.</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {headerLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground/60 hover:text-accent transition-colors duration-300"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        </motion.header>
-
         {/* Hero Content */}
         <div className="flex-1 flex items-center justify-center px-4 md:px-8 lg:px-16">
           <LayoutGroup>

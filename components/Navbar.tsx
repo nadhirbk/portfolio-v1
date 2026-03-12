@@ -9,12 +9,8 @@ const navLinks = [
   { label: 'MES PROJETS', href: '/projets' },
   { label: 'TÉMOIGNAGES', href: '/#testimonials' },
   { label: 'À PROPOS', href: '/#about' },
-  { label: 'CONTACT', href: '/#contact' },
-]
-
-const mobileLinks = [
   { label: 'MON APPROCHE', href: '/#process' },
-  ...navLinks,
+  { label: 'CONTACT', href: '/#contact' },
 ]
 
 export default function Navbar() {
@@ -61,7 +57,7 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-8 md:hidden"
           >
-            {mobileLinks.map((link, i) => (
+            {navLinks.map((link, i) => (
               <motion.a
                 key={link.href}
                 href={link.href}
