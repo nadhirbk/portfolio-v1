@@ -80,7 +80,12 @@ export default function Navbar() {
       </AnimatePresence>
 
       {/* Desktop Header */}
-      <header className="w-full px-4 md:px-8 lg:px-16 py-6 md:py-8 flex items-center justify-between">
+      <motion.header
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full px-4 md:px-8 lg:px-16 py-6 md:py-8 flex items-center justify-between"
+      >
         <Link href="/" className="text-xl font-bold">
           <span className="text-background">Nadhir</span>
           <span className="text-background/40">B.K.</span>
@@ -97,7 +102,7 @@ export default function Navbar() {
             </Link>
           ))}
         </nav>
-      </header>
+      </motion.header>
     </>
   )
 }

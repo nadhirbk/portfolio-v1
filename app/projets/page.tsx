@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { ArrowUpRight } from 'lucide-react'
 import Navbar from '@/components/Navbar'
+import ProjetsHeader from './ProjetsHeader'
 
 export const metadata: Metadata = {
   title: 'Mes projets | Nadhir B.K.',
@@ -53,18 +54,7 @@ export default function ProjetsPage() {
       <Navbar />
       <div className="container-max">
 
-        {/* Header */}
-        <header className="pt-6 pb-12 md:pb-16">
-          <p className="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-3">
-            Portfolio
-          </p>
-          <h1 className="text-5xl md:text-7xl font-black text-background leading-none tracking-tight mb-4">
-            Mes projets
-          </h1>
-          <p className="text-base md:text-lg text-background/50 max-w-md">
-            Trois réalisations récentes pour des clients aux besoins variés.
-          </p>
-        </header>
+        <ProjetsHeader />
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pb-20">
