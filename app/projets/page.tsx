@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { ArrowLeft, ArrowUpRight } from 'lucide-react'
-import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
+import Navbar from '@/components/Navbar'
 
 export const metadata: Metadata = {
   title: 'Mes projets | Nadhir B.K.',
@@ -50,17 +50,11 @@ const projects = [
 export default function ProjetsPage() {
   return (
     <main className="min-h-screen bg-foreground section-padding">
+      <Navbar />
       <div className="container-max">
 
         {/* Header */}
-        <header className="pt-10 pb-12 md:pt-14 md:pb-16">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-background/40 hover:text-background/70 transition-colors text-sm font-medium mb-10 group"
-          >
-            <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
-            Retour
-          </Link>
+        <header className="pt-6 pb-12 md:pb-16">
           <p className="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-3">
             Portfolio
           </p>
