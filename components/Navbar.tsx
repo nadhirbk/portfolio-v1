@@ -7,9 +7,9 @@ import { useState } from 'react'
 // On pages other than homepage, hash links point to homepage sections
 const navLinks = [
   { label: 'MES PROJETS', href: '/projets' },
+  { label: 'MON APPROCHE', href: '/#process' },
   { label: 'TÉMOIGNAGES', href: '/#testimonials' },
   { label: 'À PROPOS', href: '/#about' },
-  { label: 'MON APPROCHE', href: '/#process' },
   { label: 'CONTACT', href: '/#contact' },
 ]
 

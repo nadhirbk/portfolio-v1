@@ -14,9 +14,9 @@ const words = ['marquent.', 'se démarquent.', 'inspirent.', 'osent.']
 
 const headerLinks = [
   { label: 'MES PROJETS', href: '/projets' },
+  { label: 'MON APPROCHE', href: '#process' },
   { label: 'TÉMOIGNAGES', href: '#testimonials' },
   { label: 'À PROPOS', href: '#about' },
-  { label: 'MON APPROCHE', href: '#process' },
   { label: 'CONTACT', href: '#contact' },
 ]
 
