@@ -158,7 +158,7 @@ export default function Hero() {
                 className="block"
                 initial={{ opacity: 0, y: 20, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.55, delay: 0.35, ease: [0.34, 1.56, 0.64, 1] }}
+                transition={{ duration: 0.55, delay: 0.65, ease: [0.34, 1.56, 0.64, 1] }}
               >
                 Hello, moi c&apos;est Nadhir.
               </motion.span>
@@ -166,7 +166,7 @@ export default function Hero() {
                 className="block"
                 initial={{ opacity: 0, y: 20, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.55, delay: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
+                transition={{ duration: 0.55, delay: 1.1, ease: [0.34, 1.56, 0.64, 1] }}
               >
                 Je crée des sites web qui{' '}
                 <motion.span
@@ -178,7 +178,7 @@ export default function Hero() {
                     className="relative z-10 text-background px-2 md:px-3 inline-flex"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.45, delay: 1.35, ease: [0.34, 1.56, 0.64, 1] }}
+                    transition={{ duration: 0.45, delay: 1.75, ease: [0.34, 1.56, 0.64, 1] }}
                   >
                     <TextRotate
                       texts={words}
@@ -200,7 +200,7 @@ export default function Hero() {
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{
-                      scaleX: { duration: 0.5, delay: 1.1, ease: [0.22, 1, 0.36, 1] },
+                      scaleX: { duration: 0.5, delay: 1.5, ease: [0.22, 1, 0.36, 1] },
                       layout: { type: 'spring', stiffness: 400, damping: 25 }
                     }}
                     style={{ transformOrigin: 'left' }}
