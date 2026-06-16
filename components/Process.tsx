@@ -1,200 +1,225 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
-import { Eye, MessageSquare, Rocket, Zap } from 'lucide-react'
-import { useState } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import AnimatedWords from './AnimatedWords'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const steps = [
   {
-    id: 1,
-    icon: MessageSquare,
-    title: 'Écoute & Stratégie',
-    description:
-      'Je commence par comprendre vos besoins, votre audience et vos objectifs. Briefing détaillé et analyse de la concurrence.',
-    highlight: 'Force de proposition',
+    number: '01',
+    titleLight: 'Écoute &',
+    titleBold: 'Stratégie',
+    description: `Brief approfondi, analyse de votre audience et de votre concurrence. Je ne me contente pas d'exécuter — je propose, je questionne, je challenge.`,
   },
   {
-    id: 2,
-    icon: Zap,
-    title: 'Design & Prototypage',
-    description:
-      'Création de maquettes interactives avec animations. Vous voyez le résultat avant même le développement.',
-    highlight: 'Feedbacks fréquents',
+    number: '02',
+    titleLight: 'Design &',
+    titleBold: 'Prototypage',
+    description: `Maquettes interactives et choix visuels clairs. Vous visualisez le résultat avant la première ligne de code. On itère jusqu'à ce que ce soit juste.`,
   },
   {
-    id: 3,
-    icon: Eye,
-    title: 'Développement Live',
-    description:
-      'Code propre et optimisé. Déploiement sur Vercel pour des previews instantanées à chaque modification.',
-    highlight: 'Modifications en temps réel',
+    number: '03',
+    titleLight: 'Le code',
+    titleBold: 'prend forme.',
+    description: `Code propre, performant et maintenable. Chaque étape est déployée en preview — vous suivez l'avancement et validez au fil de l'eau, sans surprise.`,
   },
   {
-    id: 4,
-    icon: Rocket,
-    title: 'Lancement & Suivi',
-    description:
-      'Mise en ligne, formation et accompagnement post-lancement. Je reste disponible pour les ajustements.',
-    highlight: 'Support continu',
+    number: '04',
+    titleLight: 'Lancement',
+    titleBold: '& Suivi',
+    description: `Mise en ligne soignée, formation à la prise en main, accompagnement post-lancement. Je reste disponible pour faire évoluer votre site.`,
   },
 ]
 
+const PANEL_COUNT = steps.length + 1 // 5
+const PAD = 'px-4 md:px-12 lg:px-24 xl:px-32 pt-8 pb-12 md:pt-10 md:pb-16'
+const DWELL = 2 // multiples of vh
+
 export default function Process() {
-  const [openStep, setOpenStep] = useState<number | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  }
+  // Panel 04 animation targets — direct refs, no class selector ambiguity
+  const lpTlRef = useRef<HTMLDivElement>(null)
+  const lpTbRef = useRef<HTMLDivElement>(null)
+  const lpDescRef = useRef<HTMLParagraphElement>(null)
+  const lastPanelAnimRef = useRef(false)
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring' as const,
-        stiffness: 100,
-        damping: 20,
+  useGSAP(() => {
+    const track = trackRef.current
+    const container = containerRef.current
+    if (!track || !container) return
+
+    // Hide panel 04 title elements before animation
+    gsap.set([lpTlRef.current, lpTbRef.current, lpDescRef.current], { y: 90, opacity: 0 })
+
+    gsap.to(track, {
+      x: () => -(track.offsetWidth - window.innerWidth),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: container,
+        pin: true,
+        scrub: 1,
+        snap: {
+          snapTo: (value: number) => {
+            const hDist = track.offsetWidth - window.innerWidth
+            const dwell = window.innerHeight * DWELL
+            const panelFraction = hDist / (hDist + dwell)
+            const step = panelFraction / (PANEL_COUNT - 1)
+            const positions = Array.from({ length: PANEL_COUNT }, (_, i) => i * step)
+            return positions.reduce((a, b) =>
+              Math.abs(b - value) < Math.abs(a - value) ? b : a
+            )
+          },
+          duration: { min: 0.4, max: 0.8 },
+          ease: 'power2.inOut',
+          delay: 0.3,
+        },
+        end: () => `+=${track.offsetWidth - window.innerWidth + window.innerHeight * DWELL}`,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const hDist = track.offsetWidth - window.innerWidth
+          const dwell = window.innerHeight * DWELL
+          const panelFraction = hDist / (hDist + dwell)
+          // last snap point is at panelFraction (all horizontal travel complete)
+          const threshold = panelFraction - 0.015
+
+          if (!lastPanelAnimRef.current && self.progress >= threshold) {
+            lastPanelAnimRef.current = true
+
+            gsap.timeline({ defaults: { ease: 'power4.out' } })
+              .to(lpTlRef.current, { y: 0, opacity: 1, duration: 0.7 }, 0.04)
+              .to(lpTbRef.current, { y: 0, opacity: 1, duration: 0.7 }, 0.2)
+              .to(lpDescRef.current, { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out' }, 0.58)
+          }
+
+          // Reset on scroll back
+          if (lastPanelAnimRef.current && self.progress < threshold - 0.06) {
+            lastPanelAnimRef.current = false
+            gsap.set([lpTlRef.current, lpTbRef.current, lpDescRef.current], { y: 90, opacity: 0 })
+          }
+        },
       },
-    },
-  }
+    })
+  }, { scope: containerRef })
 
   return (
-    <section id="process" className="section-spacing section-padding bg-foreground text-background">
-      <div className="container-max">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="mb-8 md:mb-16 text-center"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 md:mb-6">
-            Comment je travaille
-          </h2>
-          <p className="text-lg md:text-xl text-background/70 max-w-3xl mx-auto leading-relaxed">
-            Un process transparent, agile et orienté résultats. Vous êtes impliqué à chaque étape
-            pour un résultat qui vous ressemble vraiment.
-          </p>
-        </motion.div>
+    <section id="process" className="bg-background">
+      <div ref={containerRef} className="overflow-hidden">
 
-        {/* Mobile Accordion */}
-        <div className="md:hidden space-y-3">
-          {steps.map((step) => {
-            const Icon = step.icon
-            const isOpen = openStep === step.id
-            return (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, y: 20 }}
+        <div ref={trackRef} className="flex" style={{ width: `${PANEL_COUNT * 100}vw` }}>
+
+          {/* ── Panel 0 : intro ── */}
+          <div className={`relative flex flex-col w-screen h-screen ${PAD}`}>
+            <p className="text-xs font-medium tracking-[0.3em] uppercase text-foreground/35">
+              03 — Mon approche
+            </p>
+
+            <div className="flex-1 flex flex-col justify-center">
+              <h2
+                className="font-black leading-[0.92] tracking-tight text-foreground"
+                style={{ fontSize: 'clamp(2.8rem, 6vw, 6.5rem)' }}
+              >
+                <AnimatedWords text={"Comment\nje travaille."} delay={0} />
+              </h2>
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: step.id * 0.1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="text-foreground/40 text-base leading-relaxed max-w-xs mt-6"
               >
-                <div className="bg-background/5 border border-background/10 rounded-xl overflow-hidden">
-                <button
-                  onClick={() => setOpenStep(isOpen ? null : step.id)}
-                  className="w-full flex items-center gap-4 p-4 text-left"
-                >
-                  <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-lg font-black text-white flex-shrink-0">
-                    {step.id}
-                  </div>
-                  <div className="flex-1 flex items-center gap-3">
-                    <Icon size={20} className="text-background/60 flex-shrink-0" />
-                    <span className="font-bold text-background">{step.title}</span>
-                  </div>
-                  <motion.span
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-background/40 text-xl flex-shrink-0"
-                  >
-                    ▾
-                  </motion.span>
-                </button>
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-4 pb-4 pt-1 ml-14">
-                        <p className="text-background/70 text-sm leading-relaxed mb-3">
-                          {step.description}
-                        </p>
-                        <span className="inline-block px-3 py-1.5 bg-background/20 text-background text-xs font-bold rounded-full">
-                          {step.highlight}
-                        </span>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              </motion.div>
-            )
-          })}
-        </div>
+                {`Un process en 4 étapes, de l'idée au lancement.`}
+              </motion.p>
+            </div>
 
-        {/* Desktop Grid */}
-        <motion.div
-          className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {steps.map((step) => {
-            const Icon = step.icon
+            <div className="absolute right-[22%] top-1/2 -translate-y-1/2">
+              <span className="text-xl font-black text-accent">
+                {`(pssst, c'est par ici →)`}
+              </span>
+            </div>
+          </div>
+
+          {/* ── Panels 1–4 : steps ── */}
+          {steps.map((step, i) => {
+            const isLast = i === steps.length - 1
             return (
-              <motion.div key={step.id} variants={itemVariants} className="relative group">
-                {/* Step Number */}
-                <motion.div
-                  className="absolute -top-4 -left-4 w-12 h-12 bg-accent rounded-full flex items-center justify-center text-2xl font-black text-white z-10"
-                  whileHover={{ scale: 1.1, rotate: 10 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+              <div
+                key={step.number}
+                className={`relative flex flex-col justify-between overflow-hidden w-screen h-screen ${PAD}`}
+              >
+                {/* Decorative background number */}
+                <span
+                  className="absolute right-[-2vw] bottom-[-4vh] font-black text-foreground/[0.04] select-none pointer-events-none leading-none"
+                  style={{ fontSize: 'clamp(18rem, 34vw, 46rem)' }}
                 >
-                  {step.id}
-                </motion.div>
+                  {step.number}
+                </span>
 
-                {/* Card */}
-                <motion.div
-                  className="bg-background/5 backdrop-blur-sm border border-background/10 rounded-2xl p-6 h-full flex flex-col"
-                  whileHover={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    y: -8,
-                    transition: { duration: 0.3 },
-                  }}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: -5 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                  >
-                    <Icon size={40} className="text-background mb-4" />
-                  </motion.div>
-                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-background">
-                    {step.title}
-                  </h3>
-                  <p className="text-background/70 mb-4 leading-relaxed text-sm md:text-base flex-grow">
-                    {step.description}
+                {/* Top label */}
+                <div className="flex items-start justify-between relative z-10">
+                  <p className="text-[11px] font-medium tracking-[0.3em] uppercase text-foreground/30">
+                    03 — Mon approche
                   </p>
-                  <span className="inline-block px-4 py-2 bg-background/20 text-background text-sm font-bold rounded-full w-fit">
-                    {step.highlight}
-                  </span>
-                </motion.div>
-              </motion.div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-sm font-black text-foreground/25">{step.number}</span>
+                    <span className="text-[11px] text-foreground/15">/ {String(steps.length).padStart(2, '0')}</span>
+                  </div>
+                </div>
+
+                {/* Title */}
+                <div className="relative z-10">
+                  <p className="text-[11px] font-bold tracking-[0.35em] uppercase text-accent/60 mb-5">
+                    {step.number}
+                  </p>
+
+                  <div style={{ fontSize: 'clamp(3.8rem, 10vw, 13rem)', lineHeight: 0.88, letterSpacing: '-0.02em' }}>
+                    {step.titleLight && (
+                      isLast ? (
+                        <div className="overflow-hidden">
+                          <div ref={lpTlRef} className="font-light text-foreground">{step.titleLight}</div>
+                        </div>
+                      ) : (
+                        <div className="font-light text-foreground">{step.titleLight}</div>
+                      )
+                    )}
+                    {isLast ? (
+                      <div className="overflow-hidden">
+                        <div ref={lpTbRef} className="font-black text-foreground">{step.titleBold}</div>
+                      </div>
+                    ) : (
+                      <div className="font-black text-foreground">{step.titleBold}</div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div className="relative z-10">
+                  {isLast ? (
+                    <p ref={lpDescRef} className="text-foreground/45 text-[15px] leading-relaxed max-w-md">
+                      {step.description}
+                    </p>
+                  ) : (
+                    <p className="text-foreground/45 text-[15px] leading-relaxed max-w-md">
+                      {step.description}
+                    </p>
+                  )}
+                </div>
+
+                {/* Vertical divider between panels */}
+                {!isLast && (
+                  <div className="absolute right-0 top-[20%] h-[60%] w-px bg-foreground/[0.07]" />
+                )}
+              </div>
             )
           })}
-        </motion.div>
+
+        </div>
       </div>
     </section>
   )

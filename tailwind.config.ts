@@ -10,35 +10,35 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#FFFFFF',
-        foreground: '#0F0F0F',
+        background: '#F0EBE1',
+        foreground: '#0D0B09',
         accent: {
-          DEFAULT: '#7C3AED',
-          foreground: '#FFFFFF',
+          DEFAULT: '#2D6A4F',
+          foreground: '#F0EBE1',
         },
         muted: {
-          DEFAULT: '#6B6B6B',
-          foreground: '#6B6B6B',
+          DEFAULT: '#8A8178',
+          foreground: '#8A8178',
         },
         card: {
-          DEFAULT: '#FFFFFF',
-          foreground: '#0F0F0F',
+          DEFAULT: '#E8E1D6',
+          foreground: '#0D0B09',
         },
         primary: {
-          DEFAULT: '#0F0F0F',
-          foreground: '#FFFFFF',
+          DEFAULT: '#0D0B09',
+          foreground: '#F0EBE1',
         },
         secondary: {
-          DEFAULT: '#F8F8F8',
-          foreground: '#0F0F0F',
+          DEFAULT: '#E6DFD4',
+          foreground: '#0D0B09',
         },
         destructive: {
-          DEFAULT: '#FF6B6B',
-          foreground: '#F6F2EE',
+          DEFAULT: '#DC2626',
+          foreground: '#F0EBE1',
         },
-        border: 'rgba(15, 15, 15, 0.08)',
-        input: 'rgba(10, 10, 10, 0.1)',
-        ring: '#6466F1',
+        border: 'rgba(13, 11, 9, 0.1)',
+        input: 'rgba(13, 11, 9, 0.07)',
+        ring: '#2D6A4F',
       },
       fontFamily: {
         satoshi: ['var(--font-satoshi)', 'system-ui', 'sans-serif'],
@@ -52,6 +52,7 @@ const config: Config = {
         'fade-in': 'fadeIn 0.6s ease-out',
         'slide-up': 'slideUp 0.6s ease-out',
         'scale-in': 'scaleIn 0.4s ease-out',
+        'marquee': 'marqueeScroll 30s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -65,6 +66,10 @@ const config: Config = {
         scaleIn: {
           '0%': { transform: 'scale(0.95)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        marqueeScroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },

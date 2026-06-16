@@ -1,4 +1,5 @@
 import ScrollProgress from '@/components/ScrollProgress'
+import SmoothScroll from '@/components/SmoothScroll'
 import { satoshi } from '@/lib/fonts'
 import type { Metadata } from 'next'
 import { Toaster } from 'sonner'
@@ -58,6 +59,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={satoshi.variable}>
       <body className="font-satoshi antialiased">
+        <SmoothScroll />
         <ScrollProgress />
         <Toaster position="bottom-right" richColors />
         <a href="#main-content" className="skip-to-content">

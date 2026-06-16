@@ -1,333 +1,132 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Briefcase, Clock, Github, Linkedin, Mail, Send } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
-import { toast } from 'sonner'
+import AnimatedWords from './AnimatedWords'
+
+function RollingText({ text, hovered }: { text: string; hovered: boolean }) {
+  const words = text.split(' ')
+  return (
+    <>
+      {words.map((word, i) => (
+        <span
+          key={i}
+          className="relative inline-block overflow-hidden align-bottom mr-[0.22em]"
+          style={{ paddingBottom: '0.22em', marginBottom: '-0.22em' }}
+        >
+          <motion.span
+            className="inline-block"
+            animate={{ y: hovered ? '-120%' : '0%' }}
+            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1], delay: i * 0.045 }}
+          >
+            {word}
+          </motion.span>
+          <motion.span
+            className="inline-block absolute inset-0"
+            animate={{ y: hovered ? '0%' : '120%' }}
+            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1], delay: i * 0.045 }}
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </>
+  )
+}
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
-
-  const [focusedField, setFocusedField] = useState<string | null>(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        toast.success('Message envoyé !', {
-          description: 'Je vous répondrai dans les 24h.',
-        })
-        setFormData({ name: '', email: '', message: '' })
-      } else {
-        toast.error('Erreur', {
-          description: data.error || 'Une erreur est survenue.',
-        })
-      }
-    } catch (error) {
-      toast.error('Erreur réseau', {
-        description: "Impossible d'envoyer le message. Réessayez.",
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  const socialLinks = [
-    {
-      icon: Mail,
-      href: 'mailto:dev.nadhirbk@gmail.com',
-      label: 'Envoyer un email',
-    },
-    {
-      icon: Linkedin,
-      href: 'https://linkedin.com/in/nadhirbk',
-      label: 'Profil LinkedIn',
-      external: true,
-    },
-    {
-      icon: Github,
-      href: 'https://github.com/nadhirbk',
-      label: 'Profil GitHub',
-      external: true,
-    },
-  ]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring' as const,
-        stiffness: 100,
-        damping: 20,
-      },
-    },
-  }
+  const [emailHovered, setEmailHovered] = useState(false)
 
   return (
-    <section id="contact" className="section-spacing section-padding bg-foreground text-background">
-      <div className="container-max">
+    <section id="contact" className="section-padding bg-background min-h-[calc(100vh-80px)] flex flex-col pt-16 md:pt-24 lg:pt-32 pb-12 md:pb-16">
+      <div className="container-max flex flex-col flex-1">
+
         {/* Header */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="mb-8 md:mb-16 text-center max-w-3xl mx-auto"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 md:mb-6 text-background"
-          >
-            Travaillons ensemble
-          </motion.h2>
+        <div className="mb-16 md:mb-24">
           <motion.p
-            variants={itemVariants}
-            className="text-lg md:text-xl text-background/70 max-w-3xl leading-relaxed"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5 }}
+            className="text-xs font-medium tracking-[0.3em] uppercase text-foreground/35 mb-6"
           >
-            Un projet en tête ? Une question ? N&apos;hésitez pas à me contacter. Je réponds
-            généralement sous 24h.
+            05 — Contact
           </motion.p>
-        </motion.div>
-
-        {/* Grid 2 colonnes : Form + Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start max-w-6xl mx-auto">
-          {/* Colonne gauche : Formulaire */}
-          <motion.form
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            onSubmit={handleSubmit}
-            className="space-y-4 md:space-y-6"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <div className="relative">
-                <label htmlFor="name" className="block text-sm font-bold mb-2 text-background">
-                  Nom
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  onFocus={() => setFocusedField('name')}
-                  onBlur={() => setFocusedField(null)}
-                  required
-                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300"
-                  placeholder="Votre nom"
-                />
-              </div>
-
-              <div className="relative">
-                <label htmlFor="email" className="block text-sm font-bold mb-2 text-background">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onFocus={() => setFocusedField('email')}
-                  onBlur={() => setFocusedField(null)}
-                  required
-                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300"
-                  placeholder="votre@email.com"
-                />
-              </div>
+          <div style={{ fontSize: 'clamp(2.8rem, 6vw, 6.5rem)' }} className="leading-[0.92] tracking-tight">
+            <div className="font-light text-foreground">
+              <AnimatedWords text="Travaillons" delay={0.1} />
             </div>
-
-            <div className="relative">
-              <label htmlFor="message" className="block text-sm font-bold mb-2 text-background">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                onFocus={() => setFocusedField('message')}
-                onBlur={() => setFocusedField(null)}
-                required
-                rows={6}
-                className="w-full px-4 md:px-6 py-3 md:py-4 bg-background/10 border-2 border-background/20 rounded-xl text-background placeholder:text-background/50 focus:outline-none focus:border-background focus:bg-background/15 transition-all duration-300 resize-none"
-                placeholder="Parlez-moi de votre projet..."
-              />
+            <div className="font-black text-accent">
+              <AnimatedWords text="ensemble." delay={0.3} />
             </div>
-
-            <motion.button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-accent text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg flex items-center justify-center gap-3 group relative disabled:opacity-50 disabled:cursor-not-allowed"
-              whileHover={{
-                scale: isSubmitting ? 1 : 1.02,
-              }}
-              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-            >
-              {isSubmitting ? (
-                <>
-                  <motion.div
-                    className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                  />
-                  Envoi en cours...
-                </>
-              ) : (
-                <>
-                  Envoyer le message
-                  <motion.span
-                    className="inline-block"
-                    animate={{ x: [0, 4, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    <Send size={20} />
-                  </motion.span>
-                </>
-              )}
-            </motion.button>
-          </motion.form>
-
-          {/* Colonne droite : Infos de contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-8"
-          >
-            {/* Texte d'accroche */}
-            <div>
-              <h3 className="text-2xl md:text-3xl font-black mb-4">
-                Envie de créer quelque chose d&apos;incroyable ?
-              </h3>
-              <p className="text-background/70 leading-relaxed">
-                Que ce soit pour un site vitrine, une refonte complète ou un projet sur-mesure, je
-                suis là pour transformer vos idées en réalité digitale.
-              </p>
-            </div>
-
-            {/* Infos pratiques */}
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-background/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Mail size={20} className="text-background" />
-                </div>
-                <div>
-                  <p className="font-bold mb-1 text-background">Email</p>
-                  <a
-                    href="mailto:dev.nadhirbk@gmail.com"
-                    className="text-background/70 hover:text-background transition-colors"
-                  >
-                    dev.nadhirbk@gmail.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-background/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Clock size={20} className="text-background" />
-                </div>
-                <div>
-                  <p className="font-bold mb-1 text-background">Réponse sous</p>
-                  <p className="text-background/70">24 heures maximum</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-background/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Briefcase size={20} className="text-background" />
-                </div>
-                <div>
-                  <p className="font-bold mb-1 text-background">Disponibilité</p>
-                  <p className="text-background/70">Ouvert aux nouveaux projets</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div>
-              <p className="font-bold mb-4 text-background">Retrouvez-moi sur</p>
-              <div className="flex gap-4">
-                {socialLinks.map((social, index) => {
-                  const Icon = social.icon
-                  return (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      target={social.external ? '_blank' : undefined}
-                      rel={social.external ? 'noopener noreferrer' : undefined}
-                      aria-label={social.label}
-                      className="w-12 h-12 bg-background/10 rounded-full flex items-center justify-center text-background hover:bg-background hover:text-foreground transition-all duration-300"
-                      whileHover={{ scale: 1.15, rotate: 5 }}
-                      whileTap={{ scale: 0.95 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        delay: 0.5 + index * 0.1,
-                        type: 'spring',
-                        stiffness: 400,
-                        damping: 17,
-                      }}
-                    >
-                      <Icon size={20} />
-                    </motion.a>
-                  )
-                })}
-              </div>
-            </div>
-          </motion.div>
+          </div>
         </div>
+
+        {/* Email CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+        >
+          <p className="text-foreground/40 text-base mb-8 max-w-sm leading-relaxed">
+            Un projet en tête ? Écrivez-moi, je réponds sous 24h.
+          </p>
+
+          <a
+            href="mailto:dev.nadhirbk@gmail.com"
+            onMouseEnter={() => setEmailHovered(true)}
+            onMouseLeave={() => setEmailHovered(false)}
+            className="inline-flex items-center gap-3 border-b-2 border-foreground pb-2 group"
+          >
+            <span
+              className="font-black text-foreground leading-none"
+              style={{ fontSize: 'clamp(1.4rem, 3vw, 3rem)' }}
+            >
+              <RollingText text="dev.nadhirbk@gmail.com" hovered={emailHovered} />
+            </span>
+            <motion.span
+              animate={{ rotate: emailHovered ? 0 : 45 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex shrink-0"
+            >
+              <ArrowUpRight size={28} />
+            </motion.span>
+          </a>
+        </motion.div>
 
         {/* Footer */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-10 md:mt-16 pt-6 md:pt-8 border-t border-background/20 text-center text-background/50 text-sm"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-auto pt-12 border-t border-foreground/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
         >
-          <p>© 2026 Nadhir B.K. — Tous droits réservés</p>
-          <p className="mt-2">Fait avec ❤️ en 2026</p>
+          <div className="flex items-center gap-8">
+            <a
+              href="https://linkedin.com/in/nadhirbk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-medium tracking-[0.15em] uppercase text-foreground/35 hover:text-foreground transition-colors duration-200"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/nadhirbk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-medium tracking-[0.15em] uppercase text-foreground/35 hover:text-foreground transition-colors duration-200"
+            >
+              GitHub
+            </a>
+            <p className="text-xs text-foreground/25">
+              © 2026 Nadhir B.K.
+            </p>
+          </div>
         </motion.div>
+
       </div>
     </section>
   )

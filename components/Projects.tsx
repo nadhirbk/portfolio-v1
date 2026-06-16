@@ -1,301 +1,212 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
-import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
+import AnimatedWords from './AnimatedWords'
 
 const projects = [
   {
     id: 1,
-    slug: 'deborah-martin',
+    number: '01',
     title: 'Deborah Martin Services',
     category: 'Site Vitrine',
-    description:
-      'Site vitrine élégant pour une professionnelle du coaching. Design épuré, animations subtiles et optimisation SEO.',
-    tags: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
     link: 'https://www.deborah-martin-services.fr/',
     color: '#1D2532',
     logo: '/images/projects/deborah.png',
-    image: '/images/projects/deborah-screenshot.jpg',
+    logoSize: 'max-w-[65%] max-h-[65%]',
   },
   {
     id: 2,
-    slug: 'attentive-strategy',
+    number: '02',
     title: 'Attentive Strategy',
     category: 'Site Corporate',
-    description:
-      "Plateforme corporate moderne avec animations avancées et architecture scalable. Focus sur l'expérience utilisateur.",
-    tags: ['Next.js', 'TypeScript', 'shadcn/ui'],
     link: 'https://www.attentivestrategy.com/',
     color: '#1F746D',
     logo: '/images/projects/attentive.png',
-    image: '/images/projects/attentive-screenshot.png',
+    logoSize: 'max-w-[48%] max-h-[48%]',
   },
   {
     id: 3,
-    slug: 'vinyfy',
+    number: '03',
     title: 'Vinyfy',
-    category: 'E-commerce / Marketplace',
-    description:
-      'Marketplace de vinyles avec identité visuelle forte. Design system complet, gestion de panier et paiements intégrés.',
-    tags: ['React', 'Vite', 'Tailwind CSS', 'Supabase'],
+    category: 'Marketplace',
     link: 'https://vinyfy-v2.vercel.app/',
-    color: '#DFDEE3',
+    color: '#2A2830',
     logo: '/images/projects/vinyfy.svg',
-    image: '/images/projects/vinyfy-screenshot.jpg',
+    logoSize: 'max-w-[48%] max-h-[48%]',
+  },
+  {
+    id: 4,
+    number: '04',
+    title: 'Projet à venir',
+    category: 'Web App',
+    link: '#',
+    color: '#1A1A1A',
+    logo: '',
+    logoSize: '',
+  },
+  {
+    id: 5,
+    number: '05',
+    title: 'Projet à venir',
+    category: 'E-commerce',
+    link: '#',
+    color: '#111111',
+    logo: '',
+    logoSize: '',
+  },
+  {
+    id: 6,
+    number: '06',
+    title: 'Projet à venir',
+    category: 'Site Vitrine',
+    link: '#',
+    color: '#161616',
+    logo: '',
+    logoSize: '',
   },
 ]
 
-export default function Projects() {
-  const [current, setCurrent] = useState(0)
-  const [direction, setDirection] = useState(0)
-
-  const paginate = (dir: number) => {
-    const next = current + dir
-    if (next < 0 || next >= projects.length) return
-    setDirection(dir)
-    setCurrent(next)
-  }
-
-  const swipeConfidenceThreshold = 10000
-  const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity
-
-  const slideVariants = {
-    enter: (dir: number) => ({ x: dir > 0 ? 300 : -300, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir < 0 ? 300 : -300, opacity: 0 }),
-  }
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring' as const,
-        stiffness: 100,
-        damping: 20,
-      },
-    },
-  }
-
-  const project = projects[current]
-
+function RollingText({ text, hovered }: { text: string; hovered: boolean }) {
+  const words = text.split(' ')
   return (
-    <section id="projets" className="section-spacing section-padding bg-foreground relative z-10">
-      <div className="container-max">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="mb-8 md:mb-16 text-center"
+    <>
+      {words.map((word, i) => (
+        <span
+          key={i}
+          className="relative inline-block overflow-hidden align-bottom mr-[0.22em]"
+          style={{ paddingBottom: '0.06em', marginBottom: '-0.06em' }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-background mb-4 md:mb-6">
-            Projets récents
+          {/* exits upward */}
+          <motion.span
+            className="inline-block"
+            animate={{ y: hovered ? '-105%' : '0%' }}
+            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1], delay: i * 0.045 }}
+          >
+            {word}
+          </motion.span>
+          {/* enters from below */}
+          <motion.span
+            className="inline-block absolute inset-0"
+            animate={{ y: hovered ? '0%' : '105%' }}
+            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1], delay: i * 0.045 }}
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </>
+  )
+}
+
+export default function Projects() {
+  const [ctaHovered, setCtaHovered] = useState(false)
+  return (
+    <section id="projets" className="pt-8 pb-16 md:pb-24 lg:pb-32 section-padding bg-background">
+
+        {/* Header — outside container-max so it aligns with the nav logo */}
+        <div className="mb-12 md:mb-16">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5 }}
+            className="text-xs font-medium tracking-[0.3em] uppercase text-foreground/35 mb-6"
+          >
+            02 — Mes projets
+          </motion.p>
+          <h2
+            className="font-black leading-[0.92] tracking-tight text-foreground"
+            style={{ fontSize: 'clamp(2.8rem, 6vw, 6.5rem)' }}
+          >
+            <AnimatedWords text={"Projets\nrécents."} delay={0.1} />
           </h2>
-          <p className="text-lg md:text-xl text-background/70 max-w-2xl mx-auto leading-relaxed">
-            Une sélection de sites web créés pour des clients aux besoins variés. Chaque projet
-            raconte une histoire unique.
-          </p>
-        </motion.div>
-
-        {/* Mobile Carousel */}
-        <div className="md:hidden">
-          <div className="relative overflow-hidden">
-            <AnimatePresence initial={false} custom={direction} mode="popLayout">
-              <motion.article
-                key={project.id}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={1}
-                onDragEnd={(_e, { offset, velocity }) => {
-                  const swipe = swipePower(offset.x, velocity.x)
-                  if (swipe < -swipeConfidenceThreshold) {
-                    paginate(1)
-                  } else if (swipe > swipeConfidenceThreshold) {
-                    paginate(-1)
-                  }
-                }}
-                className="group"
-              >
-                {/* Image Container */}
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block relative overflow-hidden rounded-xl mb-4 aspect-[4/3]"
-                >
-                  <div className="absolute inset-0" style={{ backgroundColor: project.color }} />
-                  <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <img
-                      src={project.logo}
-                      alt={`${project.title} logo`}
-                      className={`object-contain ${
-                        project.id === 1 ? 'max-w-[85%] max-h-[85%]' : 'max-w-[60%] max-h-[60%]'
-                      }`}
-                    />
-                  </div>
-                  <div className="absolute top-3 right-3 bg-white p-2 rounded-full z-20">
-                    <ArrowUpRight size={16} className="text-foreground" />
-                  </div>
-                </a>
-
-                {/* Content */}
-                <div>
-                  <p className="text-xs font-bold text-background/50 mb-1 uppercase tracking-wider">
-                    {project.category}
-                  </p>
-                  <h3 className="text-xl font-bold text-background mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-background/60 leading-relaxed mb-3">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-1 bg-background/10 text-background/70 text-xs font-medium rounded-md"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.article>
-            </AnimatePresence>
-          </div>
-
-          {/* Navigation: arrows + dots */}
-          <div className="flex items-center justify-center gap-4 mt-6">
-            <button
-              onClick={() => paginate(-1)}
-              className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 active:bg-background/20"
-              aria-label="Projet précédent"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <div className="flex gap-2">
-              {projects.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i) }}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === current ? 'w-6 bg-accent' : 'w-2 bg-background/30'
-                  }`}
-                  aria-label={`Projet ${i + 1}`}
-                />
-              ))}
-            </div>
-            <button
-              onClick={() => paginate(1)}
-              className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 active:bg-background/20"
-              aria-label="Projet suivant"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
         </div>
 
-        {/* Desktop Grid */}
-        <motion.div
-          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {projects.map((project) => (
-            <motion.article key={project.id} variants={itemVariants} className="group">
-              <motion.a
+      <div className="container-max">
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-10">
+          {projects.slice(0, 4).map((project, i) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
+              className="flex flex-col gap-4"
+            >
+              {/* Card image */}
+              <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block relative overflow-hidden rounded-xl mb-4 aspect-[4/3]"
-                whileHover={{ y: -8 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                className="group relative overflow-hidden rounded-xl aspect-[16/10] block"
               >
-                <div className="absolute inset-0" style={{ backgroundColor: project.color }} />
-                <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <img
-                    src={project.logo}
-                    alt={`${project.title} logo`}
-                    className={`object-contain transition-transform duration-300 group-hover:scale-105 ${
-                      project.id === 1 ? 'max-w-[85%] max-h-[85%]' : 'max-w-[60%] max-h-[60%]'
-                    }`}
-                  />
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ backgroundColor: project.color }}
+                >
+                  {project.logo && (
+                    <img
+                      src={project.logo}
+                      alt={project.title}
+                      className={`object-contain ${project.logoSize} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110`}
+                    />
+                  )}
                 </div>
-                <div className="absolute top-3 right-3 bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 group-hover:scale-110">
-                  <ArrowUpRight size={16} className="text-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </div>
-              </motion.a>
-              <div>
-                <p className="text-xs font-bold text-background/50 mb-1 uppercase tracking-wider">
-                  {project.category}
-                </p>
-                <h3 className="text-xl font-bold text-background mb-2 group-hover:text-background/80 transition-colors">
+                <span className="absolute top-4 left-4 text-[10px] font-bold tracking-[0.2em] text-white/30">
+                  {project.number}
+                </span>
+                {/* Subtle dark veil on hover */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+                <ArrowUpRight
+                  size={16}
+                  className="absolute bottom-4 right-4 text-white opacity-0 group-hover:opacity-70 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </a>
+
+              {/* Text below — always visible, Lesse style */}
+              <div className="flex items-start justify-between gap-4">
+                <h3
+                  className="font-black text-foreground leading-tight"
+                  style={{ fontSize: 'clamp(1rem, 1.6vw, 1.4rem)' }}
+                >
                   {project.title}
                 </h3>
-                <p className="text-sm text-background/60 leading-relaxed mb-3">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 bg-background/10 text-background/70 text-xs font-medium rounded-md transition-colors duration-300 group-hover:bg-background/20 group-hover:text-background/90"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                <span className="text-[11px] font-medium tracking-[0.18em] uppercase text-foreground/40 shrink-0 mt-0.5">
+                  {project.category}
+                </span>
               </div>
-            </motion.article>
+            </motion.div>
           ))}
+        </div>
+
+        {/* CTA — Oroya style, bottom right */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex justify-end mt-10"
+        >
+          <a
+            href="/projets"
+            className="inline-flex items-center gap-1 text-foreground font-black text-lg md:text-xl border-b-2 border-foreground pb-1"
+            onMouseEnter={() => setCtaHovered(true)}
+            onMouseLeave={() => setCtaHovered(false)}
+          >
+            <RollingText text="Voir tous les projets" hovered={ctaHovered} />
+            <motion.span
+              animate={{ rotate: ctaHovered ? 0 : 45 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex"
+            >
+              <ArrowUpRight size={20} />
+            </motion.span>
+          </a>
         </motion.div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-12 md:mt-16 text-center"
-        >
-          <motion.div
-            className="inline-block"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-          >
-            <Link
-              href="/projets"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white text-sm font-semibold rounded-xl"
-            >
-              Voir tous les projets
-              <ArrowUpRight size={15} />
-            </Link>
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   )
