@@ -68,7 +68,7 @@ export default function Testimonials() {
                   className="font-light text-foreground leading-[1.25] tracking-tight"
                   style={{ fontSize: 'clamp(1.6rem, 3vw, 3rem)' }}
                 >
-                  "{t.quote}"
+                  &ldquo;{t.quote}&rdquo;
                 </motion.blockquote>
 
                 <motion.div

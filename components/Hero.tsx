@@ -71,7 +71,8 @@ function StickerCard({
 
   useEffect(() => {
     stickerDivRefs.current[index] = stickerRef.current
-    return () => { stickerDivRefs.current[index] = null }
+    const refs = stickerDivRefs
+    return () => { refs.current[index] = null }
   }, [index, stickerDivRefs])
 
   const handleDragEnd = (_e: unknown, info: { offset: { x: number; y: number } }) => {
@@ -424,7 +425,7 @@ export default function Hero() {
           className="absolute bottom-20 md:bottom-28 right-[28%] md:right-[30%] hidden md:flex flex-col items-start gap-1 text-accent pointer-events-none select-none"
         >
           <p className="text-xl font-black leading-tight whitespace-nowrap">et ensuite hop...</p>
-          <p className="text-sm font-medium opacity-60 whitespace-nowrap">c'est par ici</p>
+          <p className="text-sm font-medium opacity-60 whitespace-nowrap">{"c'est par ici"}</p>
           <svg width="50" height="76" viewBox="0 0 50 76" fill="none" className="mt-1 ml-3">
             <path
               d="M 6 4 C 1 22, 12 46, 27 56 C 37 63, 48 58, 43 50 C 38 42, 29 45, 29 55 C 29 64, 35 71, 30 74"

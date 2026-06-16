@@ -19,7 +19,7 @@ export default function SmoothScroll() {
     })
 
     // Expose for external stop/start (Process panel 04 CSS lock)
-    ;(window as any).__lenis = lenis
+    ;(window as unknown as Record<string, unknown>).__lenis = lenis
 
     // Drive ScrollTrigger from Lenis virtual scroll position
     lenis.on('scroll', () => ScrollTrigger.update())
@@ -31,7 +31,7 @@ export default function SmoothScroll() {
 
     return () => {
       gsap.ticker.remove(onTick)
-      ;(window as any).__lenis = undefined
+      ;(window as unknown as Record<string, unknown>).__lenis = undefined
       lenis.destroy()
     }
   }, [])
