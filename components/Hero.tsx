@@ -346,9 +346,19 @@ export default function Hero() {
               <AnimatedWords text="Des sites web qui" delay={0.35} />
             </div>
 
-            {/* Sticker row */}
+            {/* Mobile: single static sticker */}
+            <div className="md:hidden" style={{ fontSize: 'clamp(1.6rem, 3.6vw, 4.2rem)' }}>
+              <span
+                className="inline-block font-black text-background leading-[0.95] tracking-tight px-3 py-[0.08em] rounded-xl bg-accent select-none whitespace-nowrap"
+                style={{ transform: 'rotate(-4deg)', boxShadow: '0 4px 18px rgba(45,106,79,0.25)' }}
+              >
+                MARQUENT.
+              </span>
+            </div>
+
+            {/* Desktop: interactive sticker pile + hint */}
             <div
-              className="flex items-center gap-8 md:gap-12"
+              className="hidden md:flex items-center gap-12"
               style={{ fontSize: 'clamp(1.6rem, 3.6vw, 4.2rem)' }}
             >
               <div
@@ -384,12 +394,12 @@ export default function Hero() {
                 ))}
               </div>
 
-              {/* Hint annotation — desktop only */}
+              {/* Hint annotation */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.8, duration: 0.7 }}
-                className="hidden md:flex items-center gap-4 text-accent pointer-events-none select-none shrink-0"
+                className="flex items-center gap-4 text-accent pointer-events-none select-none shrink-0"
               >
                 <svg width="72" height="50" viewBox="0 0 72 50" fill="none" className="shrink-0">
                   <path
@@ -420,8 +430,8 @@ export default function Hero() {
         {/* Scroll hint — desktop only */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: scrolled ? 0 : 1 }}
-          transition={{ delay: scrolled ? 0 : 2.4, duration: scrolled ? 0.3 : 0.8 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.4, duration: 0.8 }}
           className="absolute bottom-20 md:bottom-28 right-[28%] md:right-[30%] hidden md:flex flex-col items-start gap-1 text-accent pointer-events-none select-none"
         >
           <p className="text-xl font-black leading-tight whitespace-nowrap">et ensuite hop...</p>

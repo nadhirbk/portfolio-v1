@@ -51,6 +51,7 @@ export default function Process() {
   const lastPanelAnimRef = useRef(false)
 
   useGSAP(() => {
+    if (window.matchMedia('(pointer: coarse)').matches) return
     const track = trackRef.current
     const container = containerRef.current
     if (!track || !container) return
@@ -110,7 +111,58 @@ export default function Process() {
 
   return (
     <section id="process" className="bg-background">
-      <div ref={containerRef} className="overflow-hidden">
+
+      {/* ── Mobile: vertical stacked layout ── */}
+      <div className="md:hidden px-6 pt-12 pb-20">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5 }}
+          className="text-xs font-medium tracking-[0.3em] uppercase text-foreground/35 mb-8"
+        >
+          03 — Mon approche
+        </motion.p>
+
+        <h2
+          className="font-black leading-[0.92] tracking-tight text-foreground mb-12"
+          style={{ fontSize: 'clamp(2.8rem, 8vw, 4rem)' }}
+        >
+          <AnimatedWords text={"Comment\nje travaille."} delay={0} />
+        </h2>
+
+        <div className="flex flex-col divide-y divide-foreground/10">
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.number}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: i * 0.06 }}
+              className="pt-8 pb-8"
+            >
+              <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-accent/60 mb-4">
+                {step.number}
+              </p>
+              <div
+                className="mb-4"
+                style={{ fontSize: 'clamp(2rem, 6vw, 2.8rem)', lineHeight: 0.9, letterSpacing: '-0.02em' }}
+              >
+                {step.titleLight && (
+                  <span className="font-light text-foreground">{step.titleLight} </span>
+                )}
+                <span className="font-black text-foreground">{step.titleBold}</span>
+              </div>
+              <p className="text-foreground/45 text-[15px] leading-relaxed">
+                {step.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Desktop: pinned horizontal scroll ── */}
+      <div ref={containerRef} className="hidden md:block overflow-hidden">
 
         <div ref={trackRef} className="flex" style={{ width: `${PANEL_COUNT * 100}vw` }}>
 

@@ -193,7 +193,9 @@ export default function Projects() {
           <a
             href="/projets"
             className="inline-flex items-center gap-1 text-foreground font-black text-lg md:text-xl border-b-2 border-foreground pb-1"
-            onMouseEnter={() => setCtaHovered(true)}
+            onMouseEnter={() => {
+              if (window.matchMedia('(hover: hover)').matches) setCtaHovered(true)
+            }}
             onMouseLeave={() => setCtaHovered(false)}
           >
             <RollingText text="Voir tous les projets" hovered={ctaHovered} />

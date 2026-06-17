@@ -76,7 +76,7 @@ export default function Preloader() {
             variants={opacity}
             initial="initial"
             animate="enter"
-            className="flex items-center text-4xl md:text-5xl lg:text-6xl absolute z-10 font-medium"
+            className="flex items-center text-4xl md:text-5xl lg:text-6xl absolute z-10 font-medium left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap"
             style={{ color: '#F0EBE1', fontFamily: 'inherit' }}
           >
             <span
